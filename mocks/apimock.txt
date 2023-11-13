@@ -1,0 +1,30 @@
+
+
+/login = {
+    USERNAME,
+    PASSWORD
+} => {
+    SESSION_TOKEN
+}
+
+/headers = {
+    SESSION_TOKEN
+} => [
+    SURVEY_ID,
+    SURVEY_NAME,
+    Other info shown "in-header?"
+]
+
+/survey = {
+    SESSION_TOKEN,
+    SURVEY_ID
+} => {
+    [ALTERNATIVE1, ALTERNATIVE2...],
+    [CRITERIUM1, CRITERIUM2...]
+}
+
+/submit = {
+    SESSION_TOKEN,
+    SURVEY_ID,
+    [ANSWER1,ANSWER2...]
+}    
