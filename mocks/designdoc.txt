@@ -1,0 +1,24 @@
+1. Facylitator  \\
+    1.1 Tworzy nowy ranking \\
+        -Definiuje nowe alternatywy \\
+        -Definiuje kryteria \\
+        -Definiuje pod-kryteria (jeśli to konieczne) \\
+        -Definiuje uczestników rankingu \\
+        -Określa parametry rankingu takie jak: \\
+            Sposób liczenia rankingu (EVM / GMM etc). \\
+            Czy ranking ma być kompletny czy nie kompletny \\
+            Skale pomiarową \\
+            Sposób liczenia niespójności rankingu \\
+            Kolejność zadawanych pytań (losowa / konkretna) \\
+            Datę i czas od której ranking ma być dostępny \\
+            Datę i czas do której ranking ma być dostępny \\
+        -Rozsyła zaproszenie do udziału w rankingu ekspertom (uczestnikom rankingu) \\
+2. Eksperci \\
+    2.1 Odpowiadają na pytania o porównanie parami alternatyw (na jednym ekranie powinno znaleźć się jedno pytanie (jedno porównanie parami dwóch alternatyw) \\
+    2.2 Odpowiadają na pytania o porównanie parami kryteriów (podobnie na jednym ekranie jedno porównanie) \\
+    2.3 "Naciskają" guzik [submit], informujący system, że z ich strony ocena się zakończyła. \\
+3. Facylitator \\
+    3.1 Sprawdza zebrane wyniki \\
+    3.2 Nadzoruje wykonanie rankingu \\
+    3.3 Rozsyła wyniki uczestnikom/ekspertom procesu (oraz decydentom zewnętrznym). \\
+    3.4 Eksportuje wszystkie dane procesu do formatu JSON.  \\
