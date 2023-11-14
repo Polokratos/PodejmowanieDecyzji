@@ -2,6 +2,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { SurveyComponent } from "../components/drawer/SurveyComponent";
+import { TestSurvey } from "../types/types";
 
 
 const UserPage = () => {
@@ -14,8 +15,8 @@ const UserPage = () => {
     return (
     <div>
         <p>Hello, {getPayload()}</p>
-        <SurveyComponent surveyName="testing survey"/>
-        <SurveyComponent surveyName="second test survey"/>
+        <SurveyComponent surveySeed={TestSurvey}/>
+        <SurveyComponent surveySeed={TestSurvey}/>
     </div>
     );
 }
