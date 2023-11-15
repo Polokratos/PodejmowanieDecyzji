@@ -1,27 +1,28 @@
-import { useRef, useState } from "react"
+import { useEffect, useReducer, useRef, useState } from "react"
 import { SurveyBodyComponent } from "./SurveyBodyComponent";
-import { Survey, SurveyField } from "../../types/types";
+import { Answer, Survey, SurveyField } from "../../types/types";
+import { answerReducer } from "./reducer/AnswerReducer";
 
 
 
-export const SurveyComponent = (props:{surveySeed:Survey}) : JSX.Element => {
-    
-    const {current:survey} = useRef(props.surveySeed); //seed via props, do not replace
-    
+export const SurveyComponent = (props:{survey:Survey}) : JSX.Element => {
+
+    const {survey} = props;
+
+    const [alternatives,dispatchALT] = useReducer(answerReducer,survey.alternatives);
+    const [criteria, dispatchCRI] = useReducer(answerReducer,survey.criteria);
+
+
     const createContentHandler = <T,>(values:T[]) => {
         const [isOpen,setOpen] = useState(false);
         const [iterator,setIterator] = useState(0);
-        const increment = () => {setIterator((iterator+1)%values.length);};
-        const decrement = () => {setIterator((iterator-1+values.length)%values.length)}
+        const move = (by:number) => {setIterator((iterator+by+values.length)%values.length);};
         return {
+            activeIndex : iterator,
             isOpen,
             setOpen,
             toggleOpen : () => setOpen(!isOpen),
-            active : values[iterator],
-            increment,
-            decrement,
-            next : () => {increment(); return values[iterator];},
-            prev : () => {decrement(); return values[iterator];},
+            move,
         }
     };
     
@@ -29,7 +30,8 @@ export const SurveyComponent = (props:{surveySeed:Survey}) : JSX.Element => {
     const criteriaHandler = createContentHandler(survey.criteria);
 
     const submit = () => {
-        console.log(survey);   
+        console.log(alternatives);
+        console.log(criteria);
     }
 
     const Header = (
@@ -53,18 +55,30 @@ export const SurveyComponent = (props:{surveySeed:Survey}) : JSX.Element => {
     <div className="drawer">
         {Header}   
         {alternativesHandler.isOpen && <SurveyBodyComponent 
-            question={alternativesHandler.active} 
+            question={alternatives[alternativesHandler.activeIndex]} 
             surveyContext={survey.context} 
-            onNext={alternativesHandler.increment} 
-            onPrev={alternativesHandler.decrement}
-            onInputChange={(v) => alternativesHandler.active.answer = v} />}
+            onNext={(ans) => {
+                dispatchALT({answer:ans, id:alternatives[alternativesHandler.activeIndex].id});
+                alternativesHandler.move(1);
+            }} 
+            onPrev={(ans) => {
+                dispatchALT({answer:ans, id:alternatives[alternativesHandler.activeIndex].id});
+                alternativesHandler.move(-1);
+            }} 
+            initialAnswer={alternatives[alternativesHandler.activeIndex].answer} />}
         {alternativesHandler.isOpen && criteriaHandler.isOpen && <div className="drawer-delimiter"></div>}
         {criteriaHandler.isOpen && <SurveyBodyComponent
-            question={criteriaHandler.active} 
+            question={criteria[criteriaHandler.activeIndex]} 
             surveyContext={survey.context}
-            onNext={criteriaHandler.increment}
-            onPrev={criteriaHandler.decrement}
-            onInputChange={(v) => alternativesHandler.active.answer = v} />}
+            onNext={(ans) => {
+                dispatchCRI({answer:ans, id:criteria[criteriaHandler.activeIndex].id});
+                criteriaHandler.move(11);
+            }} 
+            onPrev={(ans) => {
+                dispatchCRI({answer:ans, id:alternatives[alternativesHandler.activeIndex].id});
+                criteriaHandler.move(-1);
+            }} 
+            initialAnswer={criteria[criteriaHandler.activeIndex].answer}/>}
     </div>
     );
 }

@@ -4,8 +4,10 @@ export class Question {
     context? : SurveyField
     option1 : SurveyField
     option2 : SurveyField
-    answer? : number
+    answer? : Answer
 }
+
+export type Answer = string
 
 export class Survey {
     id: number

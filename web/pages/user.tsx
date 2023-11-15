@@ -15,8 +15,8 @@ const UserPage = () => {
     return (
     <div>
         <p>Hello, {getPayload()}</p>
-        <SurveyComponent surveySeed={TestSurvey}/>
-        <SurveyComponent surveySeed={TestSurvey}/>
+        <SurveyComponent survey={TestSurvey}/>
+        <SurveyComponent survey={TestSurvey}/>
     </div>
     );
 }
