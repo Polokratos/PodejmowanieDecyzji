@@ -42,3 +42,111 @@ input[type="submit"] {
     padding: 10px 20px;
     cursor: pointer;
 }
+
+/* CSS for the survey header*/
+
+.drawer {
+    max-width: 700px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.drawer-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #007BFF;
+    color: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-weight: bold;
+}
+
+.drawer-header-content,
+.drawer-header-button {
+
+    border-color: black;
+    border-radius: 2px;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.drawer-delimiter {
+    background-color: #ccc;
+    min-height: 5px;
+    max-height: 5px;
+
+}
+
+.drawer-header-button:hover {
+  text-decoration: underline;
+  background-color: #0050a7;
+}
+
+.additional-fields {
+  margin-right: 10px;
+}
+
+/* CSS for survey body*/
+
+.drawer-body {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #eee;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    gap: 10px;
+}
+
+.drawer-body-row-sb,
+.drawer-body-row-center {
+    display: flex;
+    flex-direction: row;
+    flex: auto;
+    gap: 20px;
+}
+
+.drawer-body-row-sb {
+    justify-content: space-between;
+}
+.drawer-body-row-center {
+    justify-content: center;
+}
+
+.drawer-body-button,
+.drawer-body-option {
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.drawer-body-button {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+.drawer-body-button:hover {
+    background-color: #0050a7;
+}
+
+.drawer-body-option {
+    background-color: #fff;
+    flex : auto;
+}
+
+.drawer-input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}

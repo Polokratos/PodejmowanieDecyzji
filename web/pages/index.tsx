@@ -7,16 +7,19 @@ const SignInPage = () => {
   const [password,setPassword] = useState("");
   const [loginFailed,setLoginFailed] = useState(false); 
 
-  const redirect = (payload) => {
-    payload = {username:username, ...payload}
-    window.location.href = `/user?payload=${payload}`
+  const redirect = () => {
+    const payload = {username:username};
+    window.location.href = `/user?payload=${JSON.stringify(payload)}`;
   }
 
   const sendFurther = () => {
-    return fetch("http://server.com/login",
+    return fetch("http://ThIsDoMaInShOuLdNoTeXiStPlEaSeAnDtHaNkYoU.com/login",
     {
       method : "POST",
-      body : JSON.stringify({username:username,password:password})
+      body : JSON.stringify({username:username,password:password}),
+      headers : {
+        'Content-Type' : "application/json"
+      }
     }).then(redirect,() =>setLoginFailed(true))
   }
 

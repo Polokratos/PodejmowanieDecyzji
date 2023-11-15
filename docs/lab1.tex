@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{breqn}
+
+\author{Piotr Koproń \and Bartosz Słupik}
+\date{2023.03.03}
+\title{Podejmowanie decyzji - projekt zaliczeniowy; wersja 0.1.0}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\section{Wstęp}
+Specyfikacja projektu zaliczeniowego na pzedmiot "Podejmowanie Decyzji".
+\section{Część specyfikacyjna}
+\subsection{Zakres projektu}
+\subsubsection{Cele projektu}
+Podstawowym celem projektu jest przygotowanie aplikacji do grupowego podejmowania decyzji metodą AHP (metodą porównywania parami). \\
+\begin{itemize}
+\item aplikacja powinna wykorzystywać metodę EVM i/lub GMM do tworzenia rankingów oraz odpowiednie metody AIJ i/lub AIR do grupowania osądów (macierzy porównywania parami) pochodzących od różnych ekspertów. 
+\item aplikacja powinna - pozwalać na używanie tzw. skali fundamentalnej ale również na definiowanie swojej własnej skali porównań przez użytkownika, w tym bezpośrednio skali numerycznej. 
+\item aplikacja powinna działać w architekturze klient-serwer 
+\item aplikacja powinna umożliwiać pełny eksport danych rankingowych (wszystkich danych wejściowych) do pliku JSON (przykładowy plik załączony w sekcji Ramowy Opis Projektu).
+\end{itemize}
+\subsubsection{Przykładowy Use Case, który powinien być możliwy do zrealizowania.}
+\begin{itemize}
+\item Facylitator
+	\begin{itemize}
+        \item Tworzy nowy ranking
+		\begin{itemize}
+            \item Definiuje nowe alternatywy
+            \item Definiuje kryteria
+            \item Definiuje pod-kryteria (jeśli to konieczne)
+            \item Definiuje uczestników rankingu
+            \item Określa parametry rankingu takie jak:
+			\begin{itemize}
+                \item Sposób liczenia rankingu (EVM / GMM etc).
+                \item Czy ranking ma być kompletny czy nie kompletny
+                \item Skale pomiarową
+                \item Sposób liczenia niespójności rankingu
+                \item Kolejność zadawanych pytań (losowa / konkretna)
+                \item Datę i czas od której ranking ma być dostępny
+                \item Datę i czas do której ranking ma być dostępny
+			\end{itemize}
+            \item Rozsyła zaproszenie do udziału w rankingu ekspertom (uczestnikom rankingu)
+		\end{itemize}
+	\end{itemize}
+\item    Eksperci
+	\begin{itemize}
+        \item Odpowiadają na pytania o porównanie parami alternatyw (na jednym ekranie powinno znaleźć się jedno pytanie (jedno porównanie parami dwóch alternatyw)
+        \item Odpowiadają na pytania o porównanie parami kryteriów (podobnie na jednym ekranie jedno porównanie)
+        \item "Naciskają" guzik [submit], informujący system, że z ich strony ocena się zakończyła.
+	\end{itemize}
+\item    Facylitator
+	\begin{itemize}
+        \item Sprawdza zebrane wyniki
+        \item Nadzoruje wykonanie rankingu
+        \item Rozsyła wyniki uczestnikom/ekspertom procesu (oraz decydentom zewnętrznym).
+        \item Eksportuje wszystkie dane procesu do formatu JSON. 
+	\end{itemize}
+\end{itemize}
+\subsection{Architektura}
+\begin{itemize}
+	\item Serwer: REST-based C\# TU WSTAW RESZTE TECH STACKU SERWERA
+	\item Klient: React+Next.js+TypeScript - zgodnie z mockami w osobnych dokumentach
+	\item Wewnętrzne REST API - zgodnie z osobnym dokumentem
+	\item Baza danych - zgodnie z osobnym dokumentem
+\end{itemize}
+\subsection{Konfguracja}
+\begin{intemize}
+	\item Frontend developement
+	\begin{itemize}
+	\item cd reporoot/web
+	\item npm run dev
+	\item Aplikacja uruchomiona na http:\\localhost:3000
+	\end{itemize}
+	\item Backend
+\end{itemize}
+	
+\subsection{Zarządzanie testowaniem}
+BLOCKED BY: Brak zatwierdzenia specyfikacji przez Klienta 
+\subsection{Zarządzanie ryzykiem}
+Podstawowym źródłem ryzyka są nieprzewidziane okoliczności. Zaleczne ostrożne estymaty czasu pracy nad funkcjonalnościami.
+\section{Część projektowa}
+\end{document}

@@ -1,6 +1,8 @@
 //user.html
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { SurveyComponent } from "../components/drawer/SurveyComponent";
+import { TestSurvey } from "../types/types";
 
 
 const UserPage = () => {
@@ -12,8 +14,9 @@ const UserPage = () => {
 
     return (
     <div>
-        This is a page for the user to do stuff users do.
-        TEXT: {getPayload()}
+        <p>Hello, {getPayload()}</p>
+        <SurveyComponent survey={TestSurvey}/>
+        <SurveyComponent survey={TestSurvey}/>
     </div>
     );
 }
