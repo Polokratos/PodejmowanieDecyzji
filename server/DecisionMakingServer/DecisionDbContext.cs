@@ -63,5 +63,12 @@ public class DecisionDbContext : DbContext
             .WithMany(c => c.Results)
             .HasForeignKey(a => a.CriterionId)
             .OnDelete(DeleteBehavior.NoAction);
+        
+        // setup 1-to-1 ranking-scale
+        modelBuilder.Entity<Ranking>()
+            .HasOne(r => r.Scale)
+            .WithOne(s => s.Ranking)
+            .HasForeignKey<Ranking>(r => r.ScaleId)
+            .IsRequired(false);
     }
 }

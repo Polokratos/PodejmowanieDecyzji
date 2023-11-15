@@ -2,7 +2,7 @@ namespace DecisionMakingServer.Models;
 
 public class Criterion
 {
-    public int CriterionID { get; set; }
+    public int CriterionId { get; set; }
     
     public int RankingId { get; set; }
     public Ranking Ranking { get; set; } = null!;
