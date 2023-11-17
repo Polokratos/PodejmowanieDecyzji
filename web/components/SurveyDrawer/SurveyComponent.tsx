@@ -82,7 +82,7 @@ export const SurveyComponent = (props:{survey:Survey}) : JSX.Element => {
                 criteriaHandler.move(-1);
             }}
             setAnswer={ans => {
-                dispatchCRI({answer:ans, id:alternatives[alternativesHandler.activeIndex].id});
+                dispatchCRI({answer:ans, id:criteria[criteriaHandler.activeIndex].id});
             }} 
             answer={criteria[criteriaHandler.activeIndex].answer ?? ""}/>}
     </div>
