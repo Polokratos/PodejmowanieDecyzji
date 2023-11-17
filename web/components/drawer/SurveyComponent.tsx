@@ -21,7 +21,7 @@ export const SurveyComponent = (props:{survey:Survey}) : JSX.Element => {
             activeIndex : iterator,
             isOpen,
             setOpen,
-            toggleOpen : () => setOpen(!isOpen),
+            toggleOpen : () => setOpen((o) => !o),
             move,
         }
     };
@@ -30,8 +30,12 @@ export const SurveyComponent = (props:{survey:Survey}) : JSX.Element => {
     const criteriaHandler = createContentHandler(survey.criteria);
 
     const submit = () => {
+        //debug logging
         console.log(alternatives);
         console.log(criteria);
+        
+        alternativesHandler.setOpen(false);
+        criteriaHandler.setOpen(false);
     }
 
     const Header = (
@@ -57,28 +61,30 @@ export const SurveyComponent = (props:{survey:Survey}) : JSX.Element => {
         {alternativesHandler.isOpen && <SurveyBodyComponent 
             question={alternatives[alternativesHandler.activeIndex]} 
             surveyContext={survey.context} 
-            onNext={(ans) => {
-                dispatchALT({answer:ans, id:alternatives[alternativesHandler.activeIndex].id});
+            onNext={() => {
                 alternativesHandler.move(1);
             }} 
-            onPrev={(ans) => {
-                dispatchALT({answer:ans, id:alternatives[alternativesHandler.activeIndex].id});
+            onPrev={() => {
                 alternativesHandler.move(-1);
             }} 
-            initialAnswer={alternatives[alternativesHandler.activeIndex].answer} />}
+            setAnswer={ans => {
+                dispatchALT({answer:ans, id:alternatives[alternativesHandler.activeIndex].id});
+            }}
+            answer={alternatives[alternativesHandler.activeIndex].answer ?? ""} />}
         {alternativesHandler.isOpen && criteriaHandler.isOpen && <div className="drawer-delimiter"></div>}
         {criteriaHandler.isOpen && <SurveyBodyComponent
             question={criteria[criteriaHandler.activeIndex]} 
             surveyContext={survey.context}
-            onNext={(ans) => {
-                dispatchCRI({answer:ans, id:criteria[criteriaHandler.activeIndex].id});
-                criteriaHandler.move(11);
+            onNext={() => {
+                criteriaHandler.move(1);
             }} 
-            onPrev={(ans) => {
-                dispatchCRI({answer:ans, id:alternatives[alternativesHandler.activeIndex].id});
+            onPrev={() => {
                 criteriaHandler.move(-1);
+            }}
+            setAnswer={ans => {
+                dispatchCRI({answer:ans, id:alternatives[alternativesHandler.activeIndex].id});
             }} 
-            initialAnswer={criteria[criteriaHandler.activeIndex].answer}/>}
+            answer={criteria[criteriaHandler.activeIndex].answer ?? ""}/>}
     </div>
     );
 }
