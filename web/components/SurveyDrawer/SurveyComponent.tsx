@@ -1,6 +1,6 @@
-import { useEffect, useReducer, useRef, useState } from "react"
+import { useReducer, useState } from "react"
 import { SurveyBodyComponent } from "./SurveyBodyComponent";
-import { Answer, Survey, SurveyField } from "../../types/types";
+import { Answer, Question, Survey } from "../../types/types";
 import { answerReducer } from "./reducer/AnswerReducer";
 
 
@@ -9,30 +9,39 @@ export const SurveyComponent = (props:{survey:Survey}) : JSX.Element => {
 
     const {survey} = props;
 
-    const [alternatives,dispatchALT] = useReducer(answerReducer,survey.alternatives);
-    const [criteria, dispatchCRI] = useReducer(answerReducer,survey.criteria);
-
-
-    const createContentHandler = <T,>(values:T[]) => {
+    const createQuestionHandler = (valuesSeed:Question[]) => {
         const [isOpen,setOpen] = useState(false);
+
+        const [values,setValues] = useState(valuesSeed);
         const [iterator,setIterator] = useState(0);
-        const move = (by:number) => {setIterator((iterator+by+values.length)%values.length);};
+
+        const move = (by: number) => setIterator(c => (c+by+valuesSeed.length)%valuesSeed.length);
+        const currentQuestion = values[iterator];
+        const setAnswer = (ans:Answer) => {
+            const newState = [...values];
+            newState[iterator] = {...newState[iterator], answer:ans};
+            setValues(newState);
+        }
         return {
-            activeIndex : iterator,
+            questions : values,
+            currentQuestion,
             isOpen,
             setOpen,
-            toggleOpen : () => setOpen((o) => !o),
-            move,
+            toggleOpen : () => setOpen(open=>!open),
+            answer : currentQuestion.answer ?? "",
+            setAnswer,
+            previous : () => move(-1),
+            next : () => move(1),
         }
     };
     
-    const alternativesHandler = createContentHandler(survey.alternatives);
-    const criteriaHandler = createContentHandler(survey.criteria);
+    const alternativesHandler = createQuestionHandler(survey.alternatives);
+    const criteriaHandler = createQuestionHandler(survey.criteria);
 
     const submit = () => {
         //debug logging
-        console.log(alternatives);
-        console.log(criteria);
+        console.log(alternativesHandler.questions.map(e=>e.answer));
+        console.log(criteriaHandler.questions.map(e=>e.answer));
         
         alternativesHandler.setOpen(false);
         criteriaHandler.setOpen(false);
@@ -58,33 +67,9 @@ export const SurveyComponent = (props:{survey:Survey}) : JSX.Element => {
     return ( 
     <div className="drawer">
         {Header}   
-        {alternativesHandler.isOpen && <SurveyBodyComponent 
-            question={alternatives[alternativesHandler.activeIndex]} 
-            surveyContext={survey.context} 
-            onNext={() => {
-                alternativesHandler.move(1);
-            }} 
-            onPrev={() => {
-                alternativesHandler.move(-1);
-            }} 
-            setAnswer={ans => {
-                dispatchALT({answer:ans, id:alternatives[alternativesHandler.activeIndex].id});
-            }}
-            answer={alternatives[alternativesHandler.activeIndex].answer ?? ""} />}
+        {alternativesHandler.isOpen && <SurveyBodyComponent surveyContext={survey.context} {...alternativesHandler} />}
         {alternativesHandler.isOpen && criteriaHandler.isOpen && <div className="drawer-delimiter"></div>}
-        {criteriaHandler.isOpen && <SurveyBodyComponent
-            question={criteria[criteriaHandler.activeIndex]} 
-            surveyContext={survey.context}
-            onNext={() => {
-                criteriaHandler.move(1);
-            }} 
-            onPrev={() => {
-                criteriaHandler.move(-1);
-            }}
-            setAnswer={ans => {
-                dispatchCRI({answer:ans, id:criteria[criteriaHandler.activeIndex].id});
-            }} 
-            answer={criteria[criteriaHandler.activeIndex].answer ?? ""}/>}
+        {criteriaHandler.isOpen && <SurveyBodyComponent surveyContext={survey.context} {...alternativesHandler} />}
     </div>
     );
 }

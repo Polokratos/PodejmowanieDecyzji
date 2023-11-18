@@ -1,7 +1,7 @@
 //user.html
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { SurveyComponent } from "../components/drawer/SurveyComponent";
+import { SurveyComponent } from "../components/SurveyDrawer/SurveyComponent";
 import { TestSurvey } from "../types/types";
 
 

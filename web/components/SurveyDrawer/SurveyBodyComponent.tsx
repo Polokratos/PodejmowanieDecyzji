@@ -1,18 +1,18 @@
 import { useState } from "react"
 import { Answer, Question, SurveyField } from "../../types/types"
 
-export class SurveyBodyProps {
-    question: Question
+export type SurveyBodyProps = {
+    currentQuestion: Question
     surveyContext : SurveyField
-    onPrev : () => void
-    onNext : () => void
+    previous : () => void
+    next : () => void
     answer: Answer
     setAnswer: (answer: Answer) => void
 }
 
 export const SurveyBodyComponent = (props : SurveyBodyProps) : JSX.Element => {
     
-    const {question,surveyContext,onNext,onPrev,answer,setAnswer} = props;
+    const {currentQuestion: question,surveyContext,next: onNext,previous: onPrev,answer,setAnswer} = props;
 
     const QuestionContainer = (
         <>

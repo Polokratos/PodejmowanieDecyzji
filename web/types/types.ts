@@ -1,5 +1,5 @@
 
-export class Question {
+export type Question = {
     id : number
     context? : SurveyField
     option1 : SurveyField
@@ -9,7 +9,19 @@ export class Question {
 
 export type Answer = string
 
-export class Survey {
+
+export type SurveyHeader = {
+    id: number
+    name: string
+}
+
+export type SurveyDetails = {
+    alternatives : Question[]
+    criteria : Question[]
+    context : SurveyField
+}
+
+export type Survey = {
     id: number
     name: string
     context? : SurveyField
