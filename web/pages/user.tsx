@@ -1,8 +1,8 @@
 //user.html
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SurveyComponent } from "../components/SurveyDrawer/SurveyComponent";
-import { TestSurvey } from "../types/types";
+import { SurveyHeader, TestSurveyHeader } from "../types/types";
 
 
 const UserPage = () => {
@@ -12,11 +12,17 @@ const UserPage = () => {
         return router.query.payload;
     }
 
+    const [surveys,setSurveys] = useState<SurveyHeader[]>([]);
+
+    //mock api call
+    useEffect(() => {
+        setTimeout(()=>{setSurveys([TestSurveyHeader,TestSurveyHeader])},2000);
+    },[]);
+
     return (
     <div>
         <p>Hello, {getPayload()}</p>
-        <SurveyComponent survey={TestSurvey}/>
-        <SurveyComponent survey={TestSurvey}/>
+        {surveys.map(s => <SurveyComponent key={s.id + Math.random() /*Random since for mocks we have same ID*/} {...s}/>)}
     </div>
     );
 }

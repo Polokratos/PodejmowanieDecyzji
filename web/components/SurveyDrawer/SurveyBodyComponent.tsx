@@ -12,7 +12,7 @@ export type SurveyBodyProps = {
 
 export const SurveyBodyComponent = (props : SurveyBodyProps) : JSX.Element => {
     
-    const {currentQuestion: question,surveyContext,next: onNext,previous: onPrev,answer,setAnswer} = props;
+    const {currentQuestion: question,surveyContext,next,previous,answer,setAnswer} = props;
 
     const QuestionContainer = (
         <>
@@ -28,13 +28,13 @@ export const SurveyBodyComponent = (props : SurveyBodyProps) : JSX.Element => {
 
     const AnswerContainer = (
         <div className="drawer-body-row-sb">
-                <button className="drawer-body-button" onClick={()=>{onPrev();}}>{"Prev"}</button>
-                <div className="drawer-input-container">
-                    <a> input context</a>
-                    <input value={answer} onChange={(e) => {setAnswer(e.target.value);}}/>
-                </div>
-                <button className="drawer-body-button" onClick={() => {onNext();}}>{"Next"}</button>
+            <button className="drawer-body-button" onClick={previous}>{"Prev"}</button>
+            <div className="drawer-input-container">
+                <a> input context</a>
+                <input value={answer} onChange={(e) => {setAnswer(e.target.value);}}/>
             </div>
+            <button className="drawer-body-button" onClick={next}>{"Next"}</button>
+        </div>
     )
 
 
