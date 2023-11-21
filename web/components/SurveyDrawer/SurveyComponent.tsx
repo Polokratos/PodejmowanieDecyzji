@@ -25,7 +25,7 @@ export const SurveyComponent = (props:SurveyHeader) : JSX.Element => {
         return {
             questions, setQuestions, currentQuestion,
             isOpen, setOpen, toggleOpen,
-            answer : currentQuestion?.answer ?? "", setAnswer,
+            answer : currentQuestion?.answer ?? 0, setAnswer,
             previous : () => move(-1),
             next : () => move(1),
             isActive : questions.length > 0

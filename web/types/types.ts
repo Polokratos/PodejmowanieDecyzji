@@ -7,7 +7,7 @@ export type Question = {
     answer? : Answer
 }
 
-export type Answer = string
+export type Answer = number
 
 
 export type SurveyHeader = {

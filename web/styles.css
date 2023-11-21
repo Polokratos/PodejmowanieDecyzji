@@ -145,8 +145,14 @@ input[type="submit"] {
 }
 
 .drawer-input-container {
+    flex:auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 5px;
+}
+
+.inflexible-value {
+    flex:none;
+    
 }

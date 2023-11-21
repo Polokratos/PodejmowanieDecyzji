@@ -20,7 +20,7 @@ const SignInPage = () => {
       headers : {
         'Content-Type' : "application/json"
       }
-    }).then(redirect,() =>setLoginFailed(true))
+    }).then(redirect,() =>setLoginFailed(true));
   }
 
   return (
