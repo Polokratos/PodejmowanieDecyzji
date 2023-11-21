@@ -153,6 +153,21 @@ Przy tworzeniu aplikacji będą priorytetyzowane funkcjonalności krytyczne pona
 \end{figure}
 
 \pagebreak
+\subsection{Opis bazy danych}
+\begin{itemize}
+    \item Tabela Rankings - przechowuje dane dotyczące aktywnych i zamkniętych rankingów porównawczych
+    \item Tabela Users - przechowuje dane użytkowników. 
+    \item Tabela UserRankings - tworzy relację wiele użytkowników do wielu rankingów, a każdej parze 
+    przypisuje rolę użytkownika w danym rankingu: właściciel, zaproszony, nieprzypisany
+    \item Tabela Answers - przechowuje odpowiedzi użytkowników na porównania. Zawiera dwa klucze obce 
+    do lewej i prawej alternatywy, oraz wartość float jaką wybrał użytkownik
+    \item Tabela Alternatives - przechowuje zdefiniowane alternatywy w danym rankingu
+    \item Tabela Results - przechowuje już policzone wyniki rankingu
+    \item Tabela Criteria - przechowuje kryteria w danym rankingu oraz tworzy relację z podkryteriami
+    \item Tabela ScaleValues - definiuje skale oceny rankingu 
+\end{itemize}
+
+\pagebreak
 \subsection{Harmonogram realizacji}
 \begin{itemize}
     \item (21.11.2023)
