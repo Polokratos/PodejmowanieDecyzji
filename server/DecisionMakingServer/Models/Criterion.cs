@@ -14,5 +14,6 @@ public class Criterion
     public Criterion? Parent { get; set; } = null;
 
     public List<CriterionAnswer> CriterionAnswers = new();
+    public List<Answer> Answers = new();
     public List<Result> Results = new();
 }

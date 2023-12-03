@@ -17,6 +17,7 @@ public class Ranking
     public int ScaleId { get; set; }
     public Scale? Scale { get; set; } = new();
 
+    public List<Answer> Answers = new();
     public List<Alternative> Alternatives = new();
     public List<Criterion> Criteria = new();
     public List<UserRanking> UserRankings = new();

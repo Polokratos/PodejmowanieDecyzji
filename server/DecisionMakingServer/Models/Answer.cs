@@ -10,6 +10,9 @@ public class Answer
     public int UserId { get; set; }
     public User User { get; set; } = null!;
     
+    public int CriterionId { get; set; }
+    public Criterion Criterion { get; set; } = null!;
+    
     public int LeftAlternativeId { get; set; }
     public Alternative LeftAlternative { get; set; } = null!;
     

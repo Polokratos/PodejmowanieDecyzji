@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace DecisionMakingServer.Models;
 
 public class Alternative
@@ -12,6 +14,5 @@ public class Alternative
 
     public List<Answer> LeftAnswers = new();
     public List<Answer> RightAnswers = new();
-
     public List<Result> Results = new();
 }

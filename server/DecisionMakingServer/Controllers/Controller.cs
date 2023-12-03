@@ -1,29 +1,27 @@
 using DecisionMakingServer.APIModels;
+using DecisionMakingServer.Enums;
 using DecisionMakingServer.Models;
+using DecisionMakingServer.Repositories;
+using DecisionMakingServer.Session;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 
 namespace DecisionMakingServer.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class Controller : ControllerBase 
-    { 
-
-        private readonly ILogger<Controller> _logger;
-
-        public Controller(ILogger<Controller> logger)
-        {
-            _logger = logger;
-        }
-
+    public class Controller : ControllerBase
+    {
+        private readonly RequestManager _requestManager = new();
 
         [HttpPost, Route("login")]
         [ProducesResponseType(typeof(string), 200)]
         public IActionResult Login([FromBody] UserLoginDTO userLoginDto)
         {
-            if (new Random().Next() % 3 != 0)
-                return Ok("ANiceSessionTokenHehe");
-            return StatusCode(400, "Invalid login data");
+            (string sessionToken, Status status) = _requestManager.Login(userLoginDto);
+            return status == Status.Ok
+                ? Ok(sessionToken) 
+                : StatusCode(400, status.ToString());
         }
 
         
@@ -31,14 +29,10 @@ namespace DecisionMakingServer.Controllers
         [ProducesResponseType(typeof(IEnumerable<RankingHeaderDTO>), 200)]
         public IActionResult Headers([FromBody] string sessionToken)
         {
-            var headers = new[]
-            {
-                new RankingHeaderDTO { Id = 0, Name = "A test ranking", Description = "lol"},
-                new RankingHeaderDTO { Id = 2, Name = "A test ranking #2", Description = "foo"},
-                new RankingHeaderDTO { Id = 63, Name = "A test ranking #3", Description = "6nt"}
-            };
-
-            return Ok(headers);
+            (var userRankings, Status status) = _requestManager.GetUserRankings(sessionToken);
+            return status == Status.Ok
+                ? Ok(userRankings) 
+                : StatusCode(400, status.ToString());
         }
 
         
@@ -82,9 +76,12 @@ namespace DecisionMakingServer.Controllers
 
         
         [HttpPost, Route("create")]
-        public IActionResult CreateRanking([FromBody] RankingDTO rankingDto)
+        public IActionResult CreateRanking([FromBody] RankingDTO rankingDto, [FromBody] string sessionToken)
         {
-            return Ok();
+            Status s = _requestManager.CreateRanking(rankingDto, sessionToken);
+            return s == Status.Ok
+                ? Ok()
+                : StatusCode(400, s);
         }
 
         
