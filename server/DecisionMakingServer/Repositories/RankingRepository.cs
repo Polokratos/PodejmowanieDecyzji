@@ -1,3 +1,4 @@
+using System.Data.Entity;
 using DecisionMakingServer.Enums;
 using DecisionMakingServer.Models;
 
@@ -10,6 +11,16 @@ public class RankingRepository : AbstractDbRepository
         return DbContext.UserRankings
             .Where(ur => ur.UserId == userId)
             .Select(ur => ur.Ranking);
+    }
+
+    public Ranking? GetRankingWithData(int rankingId)
+    {
+        return DbContext.Rankings
+            .Include(r => r.Alternatives)
+            .Include(r => r.Criteria)
+            .Include(r => r.AskOrder)
+            .Include(r => r.Results)
+            .FirstOrDefault(r => r.RankingId == rankingId);
     }
 
     public Status AddRanking(Ranking ranking)

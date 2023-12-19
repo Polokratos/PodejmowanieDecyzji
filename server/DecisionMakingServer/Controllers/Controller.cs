@@ -36,13 +36,13 @@ namespace DecisionMakingServer.Controllers
         }
 
         
-        [HttpPost, Route("survey/{surveyId:int}")]
+        [HttpPost, Route("ranking/{rankingId:int}")]
         [ProducesResponseType(typeof(RankingDTO), 200)]
-        public IActionResult Survey([FromBody] string sessionToken, int surveyId)
+        public IActionResult GetRanking([FromBody] string sessionToken, int rankingId)
         {
             var r =  new RankingDTO
             {
-                RankingId = surveyId,
+                RankingId = rankingId,
                 Name = "A test ranking",
                 Description = "lol",
                 AggregationMethod = AggregationMethod.Default,
@@ -76,8 +76,9 @@ namespace DecisionMakingServer.Controllers
 
         
         [HttpPost, Route("create")]
-        public IActionResult CreateRanking([FromBody] RankingDTO rankingDto, [FromBody] string sessionToken)
+        public IActionResult CreateRanking([FromBody] RankingDTO rankingDto)
         {
+            string sessionToken = rankingDto.SessionToken;
             Status s = _requestManager.CreateRanking(rankingDto, sessionToken);
             return s == Status.Ok
                 ? Ok()
@@ -88,7 +89,7 @@ namespace DecisionMakingServer.Controllers
         [HttpPost, Route("submit")]
         public IActionResult Submit([FromBody] RankingPostDTO rankingData)
         {
-            return Ok();
+            return Ok("Not implemented");
         }
     }
 }
