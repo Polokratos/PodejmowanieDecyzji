@@ -1,2 +1,6 @@
 /web/.next
 /web/node_modules
+
+/server/DecisionMakingServer/bin/*
+/server/DecisionMakingServer/obj/*
+/server/DecisionMakingServer/appsettings.json

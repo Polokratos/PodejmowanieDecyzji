@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using DecisionMakingServer.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,8 +32,16 @@ public partial class DecisionDbContext : DbContext
             .AddJsonFile("appsettings.json")
             .Build();
         
-        var connectionString = configuration.GetConnectionString("cs1");
-        optionsBuilder.UseSqlServer(connectionString);
+        if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) //FIXME: A proper configuration injection would be in order, but who cares. 
+        {
+            var connectionString = configuration.GetConnectionString("cs2");
+            optionsBuilder.UseMySql(connectionString,new MySqlServerVersion(new Version("8.0.35")));
+        }
+        else
+        {
+            var connectionString = configuration.GetConnectionString("cs1");    
+            optionsBuilder.UseSqlServer(connectionString);
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
