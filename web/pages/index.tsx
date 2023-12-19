@@ -1,26 +1,22 @@
 //index.html
 import React, { useState } from 'react';
+import { fetchService } from '../services/fetchService';
 
 const SignInPage = () => {
 
   const [username,setUsername] = useState("");
   const [password,setPassword] = useState("");
   const [loginFailed,setLoginFailed] = useState(false); 
-
-  const redirect = () => {
-    const payload = {username:username};
-    window.location.href = `/user?payload=${JSON.stringify(payload)}`;
-  }
-
-  const sendFurther = () => {
-    return fetch("http://ThIsDoMaInShOuLdNoTeXiStPlEaSeAnDtHaNkYoU.com/login",
-    {
-      method : "POST",
-      body : JSON.stringify({username:username,password:password}),
-      headers : {
-        'Content-Type' : "application/json"
-      }
-    }).then(redirect,() =>setLoginFailed(true));
+  
+  const handleLogin = () => {
+      fetchService.login({username,password}).then(
+        response => {
+          window.location.href = `/user?sessionToken = ${JSON.stringify(response)}`;
+        },
+        reason => {
+          console.log(reason);
+          setLoginFailed(false);
+        });
   }
 
   return (
@@ -35,7 +31,7 @@ const SignInPage = () => {
             <label>Password:
               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
             </label>
-            <input type="submit" value="Login" onClick={redirect}></input>
+            <input type="submit" value="Login" onClick={handleLogin}></input>
         </div>
     </div>
   );
