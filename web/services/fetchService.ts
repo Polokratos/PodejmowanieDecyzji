@@ -1,4 +1,4 @@
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = "http://localhost:5000";
 const LOGIN_ENDPOINT = SERVER_URL +  "/login";
 const HEADER_ENDPOINT = SERVER_URL + "/headers";
 const SURVEY_ENDPOINTS = SERVER_URL + "/survey";
@@ -46,7 +46,9 @@ const sendRequest = <RsType>(endpoint:string,body: any) : Promise<RsType> => {
         {
             method: "POST",
             body : JSON.stringify(body),
-            headers : {'Content-Type' : "application/json"}
+            headers : {
+                'Content-Type' : "application/json",
+            }
         }).then(response => {
             if(!response.ok){
                 return Promise.reject();
