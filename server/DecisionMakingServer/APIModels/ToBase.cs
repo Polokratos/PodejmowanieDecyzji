@@ -54,14 +54,15 @@ public static class ToBase
         };
     }
 
-    public static Answer ToAnswer(this RankingAnswerDTO dto)
+    public static Answer ToAnswer(this RankingAnswerDTO dto, int userId)
     {
         return new Answer
         {
             CriterionId = dto.CriterionId,
             LeftAlternativeId = dto.LeftAlternativeId,
             RightAlternativeId = dto.RightAlternativeId,
-            Value = dto.Value
+            Value = dto.Value,
+            UserId = userId
         };
     }
 }

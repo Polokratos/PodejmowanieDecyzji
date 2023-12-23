@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using DecisionMakingServer.APIModels;
 
 namespace DecisionMakingServer.Models;
 
@@ -15,4 +16,18 @@ public class Alternative
     public List<Answer> LeftAnswers = new();
     public List<Answer> RightAnswers = new();
     public List<Result> Results = new();
+}
+
+
+public static class AlternativeExtensions
+{
+    public static AlternativeDTO ToDto(this Alternative a)
+    {
+        return new AlternativeDTO
+        {
+            AlternativeId = a.AlternativeId,
+            Name = a.Name,
+            Description = a.Description
+        };
+    }
 }

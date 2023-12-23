@@ -1,3 +1,5 @@
+using DecisionMakingServer.APIModels;
+
 namespace DecisionMakingServer.Models;
 
 public class Criterion
@@ -16,4 +18,18 @@ public class Criterion
     public List<CriterionAnswer> CriterionAnswers = new();
     public List<Answer> Answers = new();
     public List<Result> Results = new();
+}
+
+
+public static class CriteriaExtensions
+{
+    public static CriterionDTO ToDto(this Criterion c)
+    {
+        return new CriterionDTO
+        {
+            CriterionId = c.CriterionId,
+            Name = c.Name,
+            Description = c.Description,
+        };
+    }
 }

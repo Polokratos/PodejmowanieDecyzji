@@ -8,6 +8,7 @@ using DecisionMakingServer.APIModels;
 using DecisionMakingServer.Controllers;
 using DecisionMakingServer.Enums;
 using DecisionMakingServer.Repositories;
+using DecisionMakingServer.Tests;
 
 
 namespace DecisionMakingServer;
@@ -32,32 +33,38 @@ public class Program
         Console.WriteLine(st);
         int userId = requestManager.GetUserId(st);
         rankingRepository.ListUserRankings(userId);
-        
+
+        // var tester = new ControllerTest();
+        // //tester.AddRankingTest(DummyData.NoIdRanking);
+        // var ranking = tester.GetRankingTest(9);
+        // if (ranking == null) return;
+        // Console.WriteLine(ranking.Alternatives.Count);
+        // tester.AddAnswersTest(DummyData.PostDto(ranking));
 
         //
         // UNCOMMENT BELOW TO RUN IN CONTINOUS MODE 
         //
-        
-        
-        var builder = WebApplication.CreateBuilder(args);
-        // Add services to the container.
-        builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-        var app = builder.Build();
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-        
-        app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-        app.UseHttpsRedirection();
-        app.UseAuthorization();
-        app.MapControllers();
-        app.Run();
-        
+
+
+        // var builder = WebApplication.CreateBuilder(args);
+        // // Add services to the container.
+        // builder.Services.AddControllers();
+        // // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        // builder.Services.AddEndpointsApiExplorer();
+        // builder.Services.AddSwaggerGen();
+        // var app = builder.Build();
+        // // Configure the HTTP request pipeline.
+        // if (app.Environment.IsDevelopment())
+        // {
+        //     app.UseSwagger();
+        //     app.UseSwaggerUI();
+        // }
+        //
+        // app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+        // app.UseHttpsRedirection();
+        // app.UseAuthorization();
+        // app.MapControllers();
+        // app.Run();
+
     }
 }

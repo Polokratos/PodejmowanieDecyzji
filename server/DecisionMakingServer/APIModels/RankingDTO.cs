@@ -14,9 +14,9 @@ public class RankingDTO
     [JsonProperty("isComplete")] public bool IsComplete { get; set; }
     [JsonProperty("askOrder")] public string AskOrder { get; set; } = string.Empty;
     [JsonProperty("creationDate")] public DateTime? CreationDate { get; set; } = DateTime.Now;
-    [JsonProperty("endDate")] public DateTime EndDate { get; set; }
+    [JsonProperty("endDate")] public DateTime? EndDate { get; set; }
     
-    [JsonProperty("scale")] public List<ScaleValueDTO> Scale { get; set; } = new();
+    [JsonProperty("scale")] public List<ScaleValueDTO>? Scale { get; set; } = new();
     [JsonProperty("alternatives")] public List<AlternativeDTO> Alternatives { get; set; } = new();
     [JsonProperty("criteria")] public List<CriterionDTO> Criteria { get; set; } = new();
     [JsonProperty("results")] public List<ResultDTO>? Results { get; set; } = new();

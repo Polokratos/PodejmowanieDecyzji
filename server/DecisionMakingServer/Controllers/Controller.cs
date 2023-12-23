@@ -3,6 +3,7 @@ using DecisionMakingServer.Enums;
 using DecisionMakingServer.Models;
 using DecisionMakingServer.Repositories;
 using DecisionMakingServer.Session;
+using DecisionMakingServer.Tests;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
@@ -48,37 +49,10 @@ namespace DecisionMakingServer.Controllers
         [ProducesResponseType(typeof(RankingDTO), 200)]
         public IActionResult GetRanking([FromBody] string sessionToken, int rankingId)
         {
-            var r =  new RankingDTO
-            {
-                RankingId = rankingId,
-                Name = "A test ranking",
-                Description = "lol",
-                AggregationMethod = AggregationMethod.Default,
-                Alternatives = new List<AlternativeDTO>
-                {
-                    new() { AlternativeId = 0, Name = "Alt1", Description = "Alt1d" },
-                    new() { AlternativeId = 1, Name = "Alt2", Description = "Alt2d" },
-                    new() { AlternativeId = 5, Name = "Alt3", Description = "Alt3d" },
-                    new() { AlternativeId = 42, Name = "Alt4", Description = "Alt4d" },
-                    new() { AlternativeId = 69, Name = "Alt5", Description = "Alt5d" },
-                },
-                CreationDate = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
-                AskOrder = "123",
-                CalculationMethod = CalculationMethod.GMM,
-                Criteria = new List<CriterionDTO>
-                {
-                    new() { CriterionId = 0, Name = "Crit1", Description = "Crit1d" },
-                    new() { CriterionId = 13, Name = "Crit2", Description = "Crit2d" }
-                },
-                EndDate = DateTime.Now.Add(TimeSpan.FromDays(10)),
-                IsComplete = false,
-                Scale = new List<ScaleValueDTO> {
-                    new() {Description = "bad", Value = 3},
-                    new() {Description = "good", Value = 6}
-                },
-                Results = null
-            };
+            if (rankingId == -1)
+                return Ok(DummyData.RankingDto);
 
+            var r = _requestManager.GetRankingData(sessionToken, rankingId);
             return Ok(r);
         }
 
@@ -99,7 +73,10 @@ namespace DecisionMakingServer.Controllers
         [HttpPost, Route("submit")]
         public IActionResult Submit([FromBody] RankingPostDTO rankingData)
         {
-            return Ok("Not implemented");
+            Status s = _requestManager.AddRankingAnswers(rankingData);
+            return s == Status.Ok
+                ? Ok()
+                : StatusCode(400, s);
         }
     }
 }

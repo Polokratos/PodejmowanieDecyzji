@@ -7,5 +7,6 @@ public enum Status
     InvalidPassword,
     AlreadyExistsInDb,
     DatabaseAddError,
+    DatabaseGetError,
     InvalidSession
 }

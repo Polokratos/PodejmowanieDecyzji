@@ -53,15 +53,15 @@ public class RequestManager
     }
 
 
-    public Status AddRankingResults(RankingPostDTO dto, string sessionToken)
+    public Status AddRankingAnswers(RankingPostDTO dto)
     {
-        int userId = _sessionManager.GetUserId(sessionToken);
+        int userId = _sessionManager.GetUserId(dto.SessionToken);
         if (userId == -1)
             return Status.InvalidSession;
 
         int rankingId = dto.RankingId;
         var answers = dto.Answers
-            .Select(a => a.ToAnswer())
+            .Select(a => a.ToAnswer(userId))
             .ToList();
         
         answers.ForEach(a =>
@@ -71,6 +71,19 @@ public class RequestManager
         });
         
         return _answerRepository.AddAnswers(answers);
+    }
+
+
+    public (RankingDTO?, Status) GetRankingData(string sessionToken, int rankingId)
+    {
+        int userId = _sessionManager.GetUserId(sessionToken);
+        if (userId == -1)
+            return (null, Status.InvalidSession);
+
+        Ranking? ranking = _rankingRepository.GetRankingWithData(rankingId);
+        return ranking == null 
+            ? (null, Status.DatabaseGetError) 
+            : (ranking.ToDto(), Status.Ok);
     }
     
 

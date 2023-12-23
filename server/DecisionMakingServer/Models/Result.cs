@@ -1,3 +1,5 @@
+using DecisionMakingServer.APIModels;
+
 namespace DecisionMakingServer.Models;
 
 public class Result
@@ -15,4 +17,19 @@ public class Result
 
     public int Place;
     public float Score;
+}
+
+
+public static class ResultExtensions
+{
+    public static ResultDTO ToDto(this Result r)
+    {
+        return new ResultDTO
+        {
+            RankingId = r.RankingId,
+            CriterionId = r.CriterionId,
+            AlternativeId = r.AlternativeId,
+            Score = r.Score
+        };
+    }
 }

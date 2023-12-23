@@ -1,4 +1,4 @@
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using DecisionMakingServer.Enums;
 using DecisionMakingServer.Models;
 
@@ -18,7 +18,6 @@ public class RankingRepository : AbstractDbRepository
         return DbContext.Rankings
             .Include(r => r.Alternatives)
             .Include(r => r.Criteria)
-            .Include(r => r.AskOrder)
             .Include(r => r.Results)
             .FirstOrDefault(r => r.RankingId == rankingId);
     }
