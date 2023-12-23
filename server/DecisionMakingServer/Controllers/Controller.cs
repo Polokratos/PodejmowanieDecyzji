@@ -3,6 +3,7 @@ using DecisionMakingServer.Enums;
 using DecisionMakingServer.Models;
 using DecisionMakingServer.Repositories;
 using DecisionMakingServer.Session;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 
@@ -14,10 +15,12 @@ namespace DecisionMakingServer.Controllers
     {
         private readonly RequestManager _requestManager = new();
 
+        [EnableCors]
         [HttpPost, Route("login")]
         [ProducesResponseType(typeof(string), 200)]
         public IActionResult Login([FromBody] UserLoginDTO userLoginDto)
         {
+            Console.WriteLine($"Received Login request: {userLoginDto.Username}, {userLoginDto.Password}");
             (string sessionToken, Status status) = _requestManager.Login(userLoginDto);
             return status == Status.Ok
                 ? Ok(sessionToken) 
@@ -25,6 +28,7 @@ namespace DecisionMakingServer.Controllers
         }
 
         
+        [EnableCors]
         [HttpPost, Route("headers")]
         [ProducesResponseType(typeof(IEnumerable<RankingHeaderDTO>), 200)]
         public IActionResult Headers([FromBody] string sessionToken)
@@ -36,6 +40,7 @@ namespace DecisionMakingServer.Controllers
         }
 
         
+        [EnableCors]
         [HttpPost, Route("ranking/{rankingId:int}")]
         [ProducesResponseType(typeof(RankingDTO), 200)]
         public IActionResult GetRanking([FromBody] string sessionToken, int rankingId)
@@ -75,6 +80,7 @@ namespace DecisionMakingServer.Controllers
         }
 
         
+        [EnableCors]
         [HttpPost, Route("create")]
         public IActionResult CreateRanking([FromBody] RankingDTO rankingDto)
         {
@@ -86,6 +92,7 @@ namespace DecisionMakingServer.Controllers
         }
 
         
+        [EnableCors]
         [HttpPost, Route("submit")]
         public IActionResult Submit([FromBody] RankingPostDTO rankingData)
         {

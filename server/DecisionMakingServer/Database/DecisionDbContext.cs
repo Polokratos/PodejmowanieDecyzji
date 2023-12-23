@@ -34,12 +34,12 @@ public partial class DecisionDbContext : DbContext
         
         if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) //FIXME: A proper configuration injection would be in order, but who cares. 
         {
-            var connectionString = configuration.GetConnectionString("cs2");
+            string? connectionString = configuration.GetConnectionString("cs2");
             optionsBuilder.UseMySql(connectionString,new MySqlServerVersion(new Version("8.0.35")));
         }
         else
         {
-            var connectionString = configuration.GetConnectionString("cs1");    
+            string? connectionString = configuration.GetConnectionString("cs1");    
             optionsBuilder.UseSqlServer(connectionString);
         }
     }

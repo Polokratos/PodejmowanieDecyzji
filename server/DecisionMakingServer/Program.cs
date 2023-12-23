@@ -38,7 +38,7 @@ public class Program
         // UNCOMMENT BELOW TO RUN IN CONTINOUS MODE 
         //
         
-        /*
+        
         var builder = WebApplication.CreateBuilder(args);
         // Add services to the container.
         builder.Services.AddControllers();
@@ -52,10 +52,12 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        
+        app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
         app.Run();
-        */
+        
     }
 }
