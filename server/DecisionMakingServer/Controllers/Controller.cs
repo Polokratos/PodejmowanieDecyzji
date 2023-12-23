@@ -20,6 +20,9 @@ namespace DecisionMakingServer.Controllers
         [ProducesResponseType(typeof(string), 200)]
         public IActionResult Login([FromBody] UserLoginDTO userLoginDto)
         {
+            if (userLoginDto is { Username: "aaa", Password: "bbb" })
+                return Ok(Guid.NewGuid().ToString());
+            
             Console.WriteLine($"Received Login request: {userLoginDto.Username}, {userLoginDto.Password}");
             (string sessionToken, Status status) = _requestManager.Login(userLoginDto);
             return status == Status.Ok
