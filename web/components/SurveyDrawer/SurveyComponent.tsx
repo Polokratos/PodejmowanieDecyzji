@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { SurveyBodyComponent } from "./SurveyBodyComponent";
 import { Answer, Question, SurveyField, SurveyHeader, TestSurveyDetails } from "../../types/types";
+import { AlternativeDTO, CriterionDTO, RankingAnswerDTO, RankingPostDTO, fetchService } from "../../services/fetchService";
 
 
 
@@ -37,13 +38,45 @@ export const SurveyComponent = (props:SurveyHeader) : JSX.Element => {
 
     //mock api call
     useEffect(() =>{
-        setTimeout(() => setContext(TestSurveyDetails.context),200);
-        setTimeout(() => alternativesHandler.setQuestions(TestSurveyDetails.alternatives),300);
-        setTimeout(() => criteriaHandler.setQuestions(TestSurveyDetails.criteria),500);
+        const rs = fetchService.getSurvey(id);
+        rs.then(dto => {
+            setContext(dto.description ?? "");
+            const alts = dto.alternatives ?? [];
+            const crits = dto.criteria ?? [];
+            const questions = crits
+                .map(c => [...alts].map(a1 => [...alts].map((a2) : Question => { 
+                    return {
+                        id : c.criterionId,
+                        id1 : a1.alternativeId,
+                        option1 : a1.description,
+                        id2 : a2.alternativeId,
+                        option2: a2.description
+                    };})))
+                .flat(2);
+            alternativesHandler.setQuestions(questions);
+        })
+        //setTimeout(() => setContext(TestSurveyDetails.context),200);
+        //setTimeout(() => alternativesHandler.setQuestions(TestSurveyDetails.alternatives),300);
+        //setTimeout(() => criteriaHandler.setQuestions(TestSurveyDetails.criteria),500);
     },[]);
 
+
     const submit = () => {
-        //debug logging
+        const toDTO = (q:Question) : RankingAnswerDTO => {
+            return {
+                criterionID : q.id,
+                leftAlternativeID : q.id1,
+                rightAlternativeID : q.id2,
+                value: q.answer ?? NaN
+            }
+        }
+        const alternativesAnswers : RankingAnswerDTO[] = alternativesHandler.questions.map(toDTO)
+        const criteriaAnswers : RankingAnswerDTO[] = [] //criteriaHandler.questions.map(toDTO) criteria are broken
+        const body : RankingPostDTO = {
+            rankingID : id,
+            answers : [...alternativesAnswers,...criteriaAnswers]
+        }
+        fetchService.submitAnswer(body);
         console.log(alternativesHandler.questions.map(e=>e.answer));
         console.log(criteriaHandler.questions.map(e=>e.answer));
         

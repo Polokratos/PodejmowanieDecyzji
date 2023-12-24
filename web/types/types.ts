@@ -3,7 +3,9 @@ export type Question = {
     id : number
     context? : SurveyField
     option1 : SurveyField
+    id1 :number
     option2 : SurveyField
+    id2 : number
     answer? : Answer
 }
 
@@ -29,17 +31,23 @@ export const TestSurveyDetails:SurveyDetails = {
     alternatives:[
         {
             id:-2,
+            id1 : 0,
+            id2 : 0,
             option1 : "alt1",
             option2 : "alt2",
         },
         {
             id:-3,
+            id1 : 0,
+            id2 : 0,
             option1 : "alt3",
             option2 : "alt4",
             context : "altContext"
         },
         {
             id:-4,
+            id1 : 0,
+            id2 : 0,
             option1 : "alt5",
             option2 : "alt6",
         },
@@ -47,11 +55,15 @@ export const TestSurveyDetails:SurveyDetails = {
     criteria:[
         {
             id:-5,
+            id1 : 0,
+            id2 : 0,
             option1 : "cri1",
             option2 : "cri2",
         },
         {
             id:-6,
+            id1 : 0,
+            id2 : 0,
             option1 : "cri3",
             option2 : "cri4",
             context : "criContext"
@@ -77,17 +89,23 @@ const TestSurvey:Survey = {
     alternatives:[
         {
             id:-2,
+            id1 : 0,
+            id2 : 0,
             option1 : "alt1",
             option2 : "alt2",
         },
         {
             id:-3,
+            id1 : 0,
+            id2 : 0,
             option1 : "alt3",
             option2 : "alt4",
             context : "altContext"
         },
         {
             id:-4,
+            id1 : 0,
+            id2 : 0,
             option1 : "alt5",
             option2 : "alt6",
         },
@@ -95,11 +113,15 @@ const TestSurvey:Survey = {
     criteria:[
         {
             id:-5,
+            id1 : 0,
+            id2 : 0,
             option1 : "cri1",
             option2 : "cri2",
         },
         {
             id:-6,
+            id1 : 0,
+            id2 : 0,
             option1 : "cri3",
             option2 : "cri4",
             context : "criContext"

@@ -1,3 +1,5 @@
+import { SurveyHeader } from "../types/types";
+
 const SERVER_URL = "http://localhost:5000";
 const LOGIN_ENDPOINT = SERVER_URL +  "/login";
 const HEADER_ENDPOINT = SERVER_URL + "/headers";
@@ -34,32 +36,36 @@ export type RankingDTO = {
     creationDate?: string,
     endDate: string,
     scale?: ScaleValueDTO[],
-    alternatives?: CriterionDTO[],
+    alternatives?: AlternativeDTO[],
     criteria?: CriterionDTO[],
     results?: RankingDTO[]
   }
 
 
-const sendRequest = <RsType>(endpoint:string,body: any) : Promise<RsType> => {
+const sendRequest = <Rstype>(endpoint:string,body:any,isText:boolean=false) : Promise<Rstype> => {
     return fetch(
         endpoint,
         {
             method: "POST",
             body : JSON.stringify(body),
             headers : {
-                'Content-Type' : "application/json",
+                'Content-export type' : "application/json",
             }
         }).then(response => {
             if(!response.ok){
                 return Promise.reject();
             }
-            return response.json() as Promise<RsType>;
+            if(isText)
+            {
+                return response.text() as Promise<Rstype>;
+            }
+            return response.json() as Promise<Rstype>;
         })
 }
 
 const login = (body:UserLoginDTO) => sendRequest<SessionToken>(LOGIN_ENDPOINT,body);
-const getHeaders = (body:SessionToken) => sendRequest<RankingHeaderDTO[]>(HEADER_ENDPOINT,body);
-const getSurvey = (id:number,body:SessionToken) => sendRequest<RankingDTO>(SURVEY_ENDPOINTS+id.toString(),body);
-const submitAnswer = (body:RankingAnswerDTO) => sendRequest<void>(SUBMIT_ENDPOINT,body);
-
+const getHeaders = () => sendRequest<RankingHeaderDTO[]>(HEADER_ENDPOINT,stok());
+const getSurvey = (id:number) => sendRequest<RankingDTO>(SURVEY_ENDPOINTS+id.toString(),stok());
+const submitAnswer = (body:RankingPostDTO) => sendRequest<void>(SUBMIT_ENDPOINT,body);
+const stok = () => window.sessionStorage.getItem("sessionKey");
 export const fetchService = {login,getHeaders,getSurvey,submitAnswer}

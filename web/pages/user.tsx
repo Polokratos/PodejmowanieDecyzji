@@ -3,25 +3,27 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { SurveyComponent } from "../components/SurveyDrawer/SurveyComponent";
 import { SurveyHeader, TestSurveyHeader } from "../types/types";
+import { fetchService } from "../services/fetchService";
 
 
 const UserPage = () => {
     
-    const getPayload = () => {
-        const router = useRouter();
-        return router.query.payload;
+    const router = useRouter();
+    const getUsername = () => {
+        return router.query.username?.slice(1,-1);
     }
 
     const [surveys,setSurveys] = useState<SurveyHeader[]>([]);
 
     //mock api call
     useEffect(() => {
-        setTimeout(()=>{setSurveys([TestSurveyHeader,TestSurveyHeader])},2000);
+        const rs = fetchService.getHeaders();
+        setTimeout(()=>{setSurveys([TestSurveyHeader,TestSurveyHeader])},200);
     },[]);
 
     return (
     <div>
-        <p>Hello, {getPayload()}</p>
+        <p>Hello, {getUsername()}</p>
         {surveys.map(s => <SurveyComponent key={s.id + Math.random() /*Random since for mocks we have same ID*/} {...s}/>)}
     </div>
     );

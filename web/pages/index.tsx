@@ -11,7 +11,8 @@ const SignInPage = () => {
   const handleLogin = () => {
       fetchService.login({username,password}).then(
         response => {
-          window.location.href = `/user?sessionToken = ${JSON.stringify(response)}`;
+          window.sessionStorage.setItem("sessionKey",response.slice(1,-1));
+          window.location.href = `/user?username=${JSON.stringify(username)}`;
         },
         reason => {
           console.log(reason);
