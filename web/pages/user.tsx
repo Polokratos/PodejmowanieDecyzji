@@ -17,7 +17,12 @@ const UserPage = () => {
 
     //mock api call
     useEffect(() => {
-        const rs = fetchService.getHeaders();
+        const rs = fetchService.getHeaders().then(
+            rs => {
+                setSurveys(rs.map(dto => {return {id:dto.id,name:dto.name ?? ""}}));
+            },
+            rs => setSurveys([])
+        )
         setTimeout(()=>{setSurveys([TestSurveyHeader,TestSurveyHeader])},200);
     },[]);
 
