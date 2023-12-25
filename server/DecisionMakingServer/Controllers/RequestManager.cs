@@ -1,4 +1,5 @@
 using DecisionMakingServer.APIModels;
+using DecisionMakingServer.Calculation;
 using DecisionMakingServer.Enums;
 using DecisionMakingServer.Models;
 using DecisionMakingServer.Repositories;
@@ -84,6 +85,23 @@ public class RequestManager
         return ranking == null 
             ? (null, Status.DatabaseGetError) 
             : (ranking.ToDto(), Status.Ok);
+    }
+
+
+    public (List<ResultDTO>?, Status) GetRankingResults(string sessionToken, int rankingId)
+    {
+        int userId = _sessionManager.GetUserId(sessionToken);
+        if (userId == -1)
+            return (null, Status.InvalidSession);
+
+        var ranking = _rankingRepository.GetRankingWithAnswers(rankingId);
+        if (ranking == null) 
+            return (null, Status.DatabaseGetError);
+
+        var calculator = new RankingCalculator(ranking);
+        var results = calculator.Calculate();
+
+        return (results.Select(r => r.ToDto()).ToList(), Status.Ok);
     }
     
 

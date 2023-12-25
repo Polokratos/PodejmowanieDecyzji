@@ -22,6 +22,15 @@ public class RankingRepository : AbstractDbRepository
             .FirstOrDefault(r => r.RankingId == rankingId);
     }
 
+    public Ranking? GetRankingWithAnswers(int rankingId)
+    {
+        return DbContext.Rankings
+            .Include(r => r.Alternatives)
+            .Include(r => r.Criteria)
+            .Include(r => r.Answers)
+            .FirstOrDefault(r => r.RankingId == rankingId);
+    } 
+
     public Status AddRanking(Ranking ranking)
     {
         DbContext.Rankings.Add(ranking);

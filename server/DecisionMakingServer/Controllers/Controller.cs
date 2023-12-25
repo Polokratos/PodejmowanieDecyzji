@@ -75,5 +75,14 @@ namespace DecisionMakingServer.Controllers
                 ? Ok()
                 : StatusCode(400, s);
         }
+
+
+        [EnableCors]
+        [HttpPost, Route("results/{rankingId:int}")]
+        public IActionResult CalculateResults([FromBody] string sessionToken, int rankingId)
+        {
+            var (results, s) = _requestManager.GetRankingResults(sessionToken, rankingId);
+            return Ok(results);
+        }
     }
 }
