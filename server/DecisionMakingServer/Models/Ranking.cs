@@ -21,6 +21,7 @@ public class Ranking
     public List<Answer> Answers = new();
     public List<Alternative> Alternatives = new();
     public List<Criterion> Criteria = new();
+    public List<CriterionAnswer> CriterionAnswers = new();
     public List<UserRanking> UserRankings = new();
     public List<Result> Results = new();
 }

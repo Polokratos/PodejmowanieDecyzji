@@ -81,6 +81,11 @@ public partial class DecisionDbContext
             .HasOne(a => a.Ranking)
             .WithMany(r => r.Answers)
             .HasForeignKey(a => a.RankingId);
+
+        modelBuilder.Entity<CriterionAnswer>()
+            .HasOne(a => a.Ranking)
+            .WithMany(r => r.CriterionAnswers)
+            .HasForeignKey(a => a.RankingId);
     }
 
 

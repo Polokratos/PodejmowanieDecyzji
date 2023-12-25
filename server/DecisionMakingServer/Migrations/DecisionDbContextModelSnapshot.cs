@@ -45,7 +45,7 @@ namespace DecisionMakingServer.Migrations
 
                     b.HasIndex("RankingId");
 
-                    b.ToTable("Alternatives");
+                    b.ToTable("Alternatives", (string)null);
                 });
 
             modelBuilder.Entity("DecisionMakingServer.Models.Answer", b =>
@@ -86,7 +86,7 @@ namespace DecisionMakingServer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answers", (string)null);
                 });
 
             modelBuilder.Entity("DecisionMakingServer.Models.Criterion", b =>
@@ -117,7 +117,43 @@ namespace DecisionMakingServer.Migrations
 
                     b.HasIndex("RankingId");
 
-                    b.ToTable("Criteria");
+                    b.ToTable("Criteria", (string)null);
+                });
+
+            modelBuilder.Entity("DecisionMakingServer.Models.CriterionAnswer", b =>
+                {
+                    b.Property<int>("CriterionAnswerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CriterionAnswerId"));
+
+                    b.Property<int>("LeftCriterionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RankingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RightCriterionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Value")
+                        .HasColumnType("real");
+
+                    b.HasKey("CriterionAnswerId");
+
+                    b.HasIndex("LeftCriterionId");
+
+                    b.HasIndex("RankingId");
+
+                    b.HasIndex("RightCriterionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CriterionAnswers", (string)null);
                 });
 
             modelBuilder.Entity("DecisionMakingServer.Models.Ranking", b =>
@@ -163,7 +199,7 @@ namespace DecisionMakingServer.Migrations
                     b.HasIndex("ScaleId")
                         .IsUnique();
 
-                    b.ToTable("Rankings");
+                    b.ToTable("Rankings", (string)null);
                 });
 
             modelBuilder.Entity("DecisionMakingServer.Models.Result", b =>
@@ -191,7 +227,7 @@ namespace DecisionMakingServer.Migrations
 
                     b.HasIndex("RankingId");
 
-                    b.ToTable("Results");
+                    b.ToTable("Results", (string)null);
                 });
 
             modelBuilder.Entity("DecisionMakingServer.Models.Scale", b =>
@@ -207,7 +243,7 @@ namespace DecisionMakingServer.Migrations
 
                     b.HasKey("ScaleId");
 
-                    b.ToTable("Scales");
+                    b.ToTable("Scales", (string)null);
                 });
 
             modelBuilder.Entity("DecisionMakingServer.Models.ScaleValue", b =>
@@ -232,7 +268,7 @@ namespace DecisionMakingServer.Migrations
 
                     b.HasIndex("ScaleId");
 
-                    b.ToTable("ScaleValues");
+                    b.ToTable("ScaleValues", (string)null);
                 });
 
             modelBuilder.Entity("DecisionMakingServer.Models.User", b =>
@@ -253,7 +289,7 @@ namespace DecisionMakingServer.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("DecisionMakingServer.Models.UserRanking", b =>
@@ -271,7 +307,7 @@ namespace DecisionMakingServer.Migrations
 
                     b.HasIndex("RankingId");
 
-                    b.ToTable("UserRankings");
+                    b.ToTable("UserRankings", (string)null);
                 });
 
             modelBuilder.Entity("DecisionMakingServer.Models.Alternative", b =>
@@ -343,6 +379,41 @@ namespace DecisionMakingServer.Migrations
                     b.Navigation("Parent");
 
                     b.Navigation("Ranking");
+                });
+
+            modelBuilder.Entity("DecisionMakingServer.Models.CriterionAnswer", b =>
+                {
+                    b.HasOne("DecisionMakingServer.Models.Criterion", "LeftCriterion")
+                        .WithMany()
+                        .HasForeignKey("LeftCriterionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DecisionMakingServer.Models.Ranking", "Ranking")
+                        .WithMany()
+                        .HasForeignKey("RankingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DecisionMakingServer.Models.Criterion", "RightCriterion")
+                        .WithMany()
+                        .HasForeignKey("RightCriterionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DecisionMakingServer.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LeftCriterion");
+
+                    b.Navigation("Ranking");
+
+                    b.Navigation("RightCriterion");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DecisionMakingServer.Models.Ranking", b =>

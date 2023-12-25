@@ -43,21 +43,8 @@ public class Program
         userRepository.ListAll();
         rankingRepository.ListUserRankings(aaaid);
         
-        // (string st, Status s) = requestManager.Login(new UserLoginDTO
-        // {
-        //     Username = "oilymacaroni",
-        //     Password = "3bulkiminus1"
-        // });
-        // (string st, Status s) = RequestManager.Login(new UserLoginDTO
-        // {
-        //     Username = "aaa",
-        //     Password = "bbb"
-        // });
-        // Console.WriteLine(st);
-        // int userId = RequestManager.GetUserId(st);
-        // rankingRepository.ListUserRankings(userId);
 
-        // var ranking = rankingRepository.GetRankingWithAnswers(5);
+        // var ranking = rankingRepository.GetRankingWithAnswers(12);
         // var tester = new CalculatorTests(ranking);
         // tester.Test();
 

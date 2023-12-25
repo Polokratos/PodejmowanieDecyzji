@@ -28,6 +28,7 @@ public class RankingRepository : AbstractDbRepository
             .Include(r => r.Alternatives)
             .Include(r => r.Criteria)
             .Include(r => r.Answers)
+            .Include(r => r.CriterionAnswers)
             .FirstOrDefault(r => r.RankingId == rankingId);
     } 
 

@@ -8,6 +8,7 @@ public partial class DecisionDbContext : DbContext
 {
     public DbSet<Alternative> Alternatives { get; set; }
     public DbSet<Answer> Answers { get; set; }
+    public DbSet<CriterionAnswer> CriterionAnswers { get; set; }
     public DbSet<Criterion> Criteria { get; set; }
     public DbSet<Ranking> Rankings { get; set; }
     public DbSet<Result> Results { get; set; }
