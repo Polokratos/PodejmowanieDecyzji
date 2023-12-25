@@ -23,13 +23,12 @@ const UserPage = () => {
             },
             rs => setSurveys([])
         )
-        setTimeout(()=>{setSurveys([TestSurveyHeader,TestSurveyHeader])},200);
     },[]);
 
     return (
     <div>
         <p>Hello, {getUsername()}</p>
-        {surveys.map(s => <SurveyComponent key={s.id + Math.random() /*Random since for mocks we have same ID*/} {...s}/>)}
+        {surveys.map(s => <SurveyComponent key={s.id} {...s}/>)}
     </div>
     );
 }

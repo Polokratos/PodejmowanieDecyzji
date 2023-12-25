@@ -110,14 +110,14 @@
         }
       }
     },
-    "/survey/{surveyId}": {
+    "/ranking/{rankingId}": {
       "post": {
         "tags": [
           ""
         ],
         "parameters": [
           {
-            "name": "surveyId",
+            "name": "rankingId",
             "in": "path",
             "required": true,
             "style": "simple",

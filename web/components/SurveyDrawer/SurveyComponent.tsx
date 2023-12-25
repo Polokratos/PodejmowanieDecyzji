@@ -44,20 +44,21 @@ export const SurveyComponent = (props:SurveyHeader) : JSX.Element => {
             const alts = dto.alternatives ?? [];
             const crits = dto.criteria ?? [];
             const questions = crits
-                .map(c => [...alts].map(a1 => [...alts].map((a2) : Question => { 
-                    return {
+                .map(c => [...alts].map(a1 => [...alts].map((a2) : Question => (
+                    {
                         id : c.criterionId,
                         id1 : a1.alternativeId,
                         option1 : a1.description,
                         id2 : a2.alternativeId,
                         option2: a2.description
-                    };})))
-                .flat(2);
+                    }))))
+                .flat(2)
+                // shuffle
+                .map(v => ({v, key: Math.random()}))
+                .sort((a,b) => (a.key - b.key)) 
+                .map(v => v.v);
             alternativesHandler.setQuestions(questions);
         })
-        //setTimeout(() => setContext(TestSurveyDetails.context),200);
-        //setTimeout(() => alternativesHandler.setQuestions(TestSurveyDetails.alternatives),300);
-        //setTimeout(() => criteriaHandler.setQuestions(TestSurveyDetails.criteria),500);
     },[]);
 
 

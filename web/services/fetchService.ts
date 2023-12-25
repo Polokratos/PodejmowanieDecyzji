@@ -3,7 +3,7 @@ import { SurveyHeader } from "../types/types";
 const SERVER_URL = "http://localhost:5000";
 const LOGIN_ENDPOINT = SERVER_URL +  "/login";
 const HEADER_ENDPOINT = SERVER_URL + "/headers";
-const SURVEY_ENDPOINTS = SERVER_URL + "/survey";
+const SURVEY_ENDPOINTS = SERVER_URL + "/ranking";
 const CREATE_ENDPOINT = SERVER_URL + "/create";
 const SUBMIT_ENDPOINT = SERVER_URL + "/submit";
 
@@ -65,7 +65,7 @@ const sendRequest = <Rstype>(endpoint:string,body:any,isText:boolean=false) : Pr
 
 const login = (body:UserLoginDTO) => sendRequest<SessionToken>(LOGIN_ENDPOINT,body,true);
 const getHeaders = () => sendRequest<RankingHeaderDTO[]>(HEADER_ENDPOINT,stok());
-const getSurvey = (id:number) => sendRequest<RankingDTO>(SURVEY_ENDPOINTS+id.toString(),stok());
+const getSurvey = (id:number) => sendRequest<RankingDTO>(SURVEY_ENDPOINTS+"/"+id.toString(),stok());
 const submitAnswer = (body:RankingPostDTO) => sendRequest<void>(SUBMIT_ENDPOINT,body);
 const stok = () => window.sessionStorage.getItem("sessionKey");
 export const fetchService = {login,getHeaders,getSurvey,submitAnswer}
