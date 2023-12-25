@@ -9,7 +9,6 @@ namespace DecisionMakingServer.Session;
 public class SessionManager
 {
     private readonly UserRepository _userRepository = new();
-
     private readonly Dictionary<string, int> _sessions = new();
 
     private string GenerateSessionToken()
@@ -32,13 +31,6 @@ public class SessionManager
     
     public (string, Status) Login(string username, string password)
     {
-        if (username == "aaa" && password == "bbb")
-        {
-            string t = GenerateSessionToken();
-            _sessions.Add(t, 999);
-            return (t, Status.Ok);
-        }
-        
         User? user = _userRepository.GetUser(username);
         if (user is null)
             return ("", Status.InvalidUsername);

@@ -14,15 +14,13 @@ namespace DecisionMakingServer.Controllers
     [Route("[controller]")]
     public class Controller : ControllerBase
     {
-        private readonly RequestManager _requestManager = new();
-
         [EnableCors]
         [HttpPost, Route("login")]
         [ProducesResponseType(typeof(string), 200)]
         public IActionResult Login([FromBody] UserLoginDTO userLoginDto)
         {
             Console.WriteLine($"Received Login request: {userLoginDto.Username}, {userLoginDto.Password}");
-            (string sessionToken, Status status) = _requestManager.Login(userLoginDto);
+            (string sessionToken, Status status) = RequestManager.Login(userLoginDto);
             return status == Status.Ok
                 ? Ok(sessionToken) 
                 : StatusCode(400, status.ToString());
@@ -34,7 +32,7 @@ namespace DecisionMakingServer.Controllers
         [ProducesResponseType(typeof(IEnumerable<RankingHeaderDTO>), 200)]
         public IActionResult Headers([FromBody] string sessionToken)
         {
-            (var userRankings, Status status) = _requestManager.GetUserRankings(sessionToken);
+            (var userRankings, Status status) = RequestManager.GetUserRankings(sessionToken);
             return status == Status.Ok
                 ? Ok(userRankings) 
                 : StatusCode(400, status.ToString());
@@ -49,7 +47,7 @@ namespace DecisionMakingServer.Controllers
             if (rankingId == -1)
                 return Ok(DummyData.RankingDto);
 
-            var r = _requestManager.GetRankingData(sessionToken, rankingId);
+            var r = RequestManager.GetRankingData(sessionToken, rankingId);
             return Ok(r);
         }
 
@@ -59,7 +57,7 @@ namespace DecisionMakingServer.Controllers
         public IActionResult CreateRanking([FromBody] RankingDTO rankingDto)
         {
             string sessionToken = rankingDto.SessionToken;
-            Status s = _requestManager.CreateRanking(rankingDto, sessionToken);
+            Status s = RequestManager.CreateRanking(rankingDto, sessionToken);
             return s == Status.Ok
                 ? Ok()
                 : StatusCode(400, s);
@@ -70,7 +68,7 @@ namespace DecisionMakingServer.Controllers
         [HttpPost, Route("submit")]
         public IActionResult Submit([FromBody] RankingPostDTO rankingData)
         {
-            Status s = _requestManager.AddRankingAnswers(rankingData);
+            Status s = RequestManager.AddRankingAnswers(rankingData);
             return s == Status.Ok
                 ? Ok()
                 : StatusCode(400, s);
@@ -81,7 +79,7 @@ namespace DecisionMakingServer.Controllers
         [HttpPost, Route("results/{rankingId:int}")]
         public IActionResult CalculateResults([FromBody] string sessionToken, int rankingId)
         {
-            var (results, s) = _requestManager.GetRankingResults(sessionToken, rankingId);
+            var (results, s) = RequestManager.GetRankingResults(sessionToken, rankingId);
             return Ok(results);
         }
     }

@@ -4,9 +4,11 @@
 // Server=localhost\SQLEXPRESS01;Database=master;Trusted_Connection=True;
 
 
+using System.Text;
 using DecisionMakingServer.APIModels;
 using DecisionMakingServer.Controllers;
 using DecisionMakingServer.Enums;
+using DecisionMakingServer.Models;
 using DecisionMakingServer.Repositories;
 using DecisionMakingServer.Tests;
 
@@ -19,25 +21,41 @@ public class Program
     {
         using var db = DbContextProvider.DbContext;
         
-        RequestManager requestManager = new RequestManager();
         UserRepository userRepository = new();
         RankingRepository rankingRepository = new();
         
+        
+        // AAA BBB
+        if (userRepository.GetUser("aaa") == null)
+        {
+            byte[] pass = Encoding.ASCII.GetBytes("bbb");
+            userRepository.AddUser("aaa", pass);
+        }
+        
+        // New ranking for AAA BBB
+        int aaaid = userRepository.GetUser("aaa").UserId;
+        if (rankingRepository.GetUserRankings(aaaid).ToList().Count == 0)
+        {
+            int rankingid = rankingRepository.AddRanking(DummyData.NoIdRanking);
+            rankingRepository.AddUserRankingRole(aaaid, rankingid, UserRole.Owner);
+        }
+        
         userRepository.ListAll();
-
+        rankingRepository.ListUserRankings(aaaid);
+        
         // (string st, Status s) = requestManager.Login(new UserLoginDTO
         // {
         //     Username = "oilymacaroni",
         //     Password = "3bulkiminus1"
         // });
-        (string st, Status s) = requestManager.Login(new UserLoginDTO
-        {
-            Username = "aaa",
-            Password = "bbb"
-        });
-        Console.WriteLine(st);
-        int userId = requestManager.GetUserId(st);
-        rankingRepository.ListUserRankings(userId);
+        // (string st, Status s) = RequestManager.Login(new UserLoginDTO
+        // {
+        //     Username = "aaa",
+        //     Password = "bbb"
+        // });
+        // Console.WriteLine(st);
+        // int userId = RequestManager.GetUserId(st);
+        // rankingRepository.ListUserRankings(userId);
 
         // var ranking = rankingRepository.GetRankingWithAnswers(5);
         // var tester = new CalculatorTests(ranking);
