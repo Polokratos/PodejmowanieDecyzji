@@ -31,14 +31,28 @@ public class RankingRepository : AbstractDbRepository
             .FirstOrDefault(r => r.RankingId == rankingId);
     } 
 
-    public Status AddRanking(Ranking ranking)
+    public int AddRanking(Ranking ranking)
     {
         DbContext.Rankings.Add(ranking);
+        DbContext.SaveChanges();
+        return ranking.RankingId;
+    }
+
+
+    public Status AddUserRankingRole(int userId, int rankingId, UserRole userRole)
+    {
+        DbContext.UserRankings.Add(new UserRanking
+        {
+            UserId = userId,
+            UserRole = userRole,
+            RankingId = rankingId
+        });
         return DbContext.SaveChanges() > 0 
             ? Status.Ok 
             : Status.DatabaseAddError;
     }
 
+        
     public bool UserRankingExists(int userId, string name)
     {
         var query =
@@ -52,7 +66,8 @@ public class RankingRepository : AbstractDbRepository
 
     public void ListUserRankings(int userId)
     {
-        Console.WriteLine($"All rankings of User {userId}");
+        var user = DbContext.Users.FirstOrDefault(u => u.UserId == userId);
+        Console.WriteLine($"All rankings of User {userId} ({user?.Username})");
         var ids = DbContext.UserRankings.Where(ur => ur.UserId == userId).Select(ur => ur.RankingId);
         foreach (var ranking in DbContext.Rankings.Where(r => ids.Contains(r.RankingId)))
         {

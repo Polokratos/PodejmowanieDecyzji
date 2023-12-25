@@ -14,8 +14,8 @@ public class ControllerTest
     
     public void AddRankingTest(Ranking ranking)
     {
-        Status status = _rankingRepository.AddRanking(ranking);
-        Console.WriteLine($"Ranking add: {status}");
+        int id = _rankingRepository.AddRanking(ranking);
+        Console.WriteLine($"Ranking add: {id}");
     }
 
     public Ranking? GetRankingTest(int id)

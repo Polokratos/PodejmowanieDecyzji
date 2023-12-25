@@ -50,7 +50,7 @@ public class DummyData
     
     public static readonly Ranking NoIdRanking = new()
     {
-        Name = "A test ranking with no IDS",
+        Name = "A test ranking for AAA",
         Description = "lolxd",
         AggregationMethod = AggregationMethod.Default,
         Alternatives = new List<Alternative>
