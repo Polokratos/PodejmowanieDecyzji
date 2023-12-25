@@ -25,10 +25,15 @@ public class Program
         
         userRepository.ListAll();
 
+        // (string st, Status s) = requestManager.Login(new UserLoginDTO
+        // {
+        //     Username = "oilymacaroni",
+        //     Password = "3bulkiminus1"
+        // });
         (string st, Status s) = requestManager.Login(new UserLoginDTO
         {
-            Username = "oilymacaroni",
-            Password = "3bulkiminus1"
+            Username = "aaa",
+            Password = "bbb"
         });
         Console.WriteLine(st);
         int userId = requestManager.GetUserId(st);
