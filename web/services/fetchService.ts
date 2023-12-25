@@ -49,7 +49,7 @@ const sendRequest = <Rstype>(endpoint:string,body:any,isText:boolean=false) : Pr
             method: "POST",
             body : JSON.stringify(body),
             headers : {
-                'Content-export type' : "application/json",
+                'Content-type' : "application/json",
             }
         }).then(response => {
             if(!response.ok){
@@ -63,7 +63,7 @@ const sendRequest = <Rstype>(endpoint:string,body:any,isText:boolean=false) : Pr
         })
 }
 
-const login = (body:UserLoginDTO) => sendRequest<SessionToken>(LOGIN_ENDPOINT,body);
+const login = (body:UserLoginDTO) => sendRequest<SessionToken>(LOGIN_ENDPOINT,body,true);
 const getHeaders = () => sendRequest<RankingHeaderDTO[]>(HEADER_ENDPOINT,stok());
 const getSurvey = (id:number) => sendRequest<RankingDTO>(SURVEY_ENDPOINTS+id.toString(),stok());
 const submitAnswer = (body:RankingPostDTO) => sendRequest<void>(SUBMIT_ENDPOINT,body);
