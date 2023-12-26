@@ -9,14 +9,9 @@ public class Result
     public int RankingId { get; set; }
     public Ranking Ranking { get; set; } = null!;
     
-    public int CriterionId { get; set; }
-    public Criterion Criterion { get; set; } = null!;
-    
     public int AlternativeId { get; set; }
     public Alternative Alternative { get; set; } = null!;
-
-    public int Place;
-    public float Score;
+    public double Score;
 }
 
 
@@ -27,7 +22,6 @@ public static class ResultExtensions
         return new ResultDTO
         {
             RankingId = r.RankingId,
-            CriterionId = r.CriterionId,
             AlternativeId = r.AlternativeId,
             Score = r.Score
         };

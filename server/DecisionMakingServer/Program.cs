@@ -44,9 +44,9 @@ public class Program
         rankingRepository.ListUserRankings(aaaid);
         
 
-        // var ranking = rankingRepository.GetRankingWithAnswers(12);
-        // var tester = new CalculatorTests(ranking);
-        // tester.Test();
+        var ranking = rankingRepository.GetRankingWithAnswers(18);
+        var tester = new CalculatorTests(ranking);
+        tester.Test();
 
         // var tester = new ControllerTest();
         // //tester.AddRankingTest(DummyData.NoIdRanking);

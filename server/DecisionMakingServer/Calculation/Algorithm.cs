@@ -1,4 +1,5 @@
 using DecisionMakingServer.Extensions;
+using DecisionMakingServer.Models;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 
@@ -38,5 +39,31 @@ public static class Algorithm
         
         var ev = evd.EigenVectors.Column(maxEv);
         return ev.Divide(ev.Sum());
-    }   
+    }
+
+    public static Vector<double> GetPriorityVector(this Matrix<double> matrix, CalculationMethod calculationMethod)
+    {
+        return calculationMethod switch
+        {
+            CalculationMethod.EVM => CalculateEvm(matrix),
+            CalculationMethod.GMM => CalculateGmm(matrix),
+            _ => throw new NotImplementedException("Calculation method is not implemented")
+        };
+    }
+
+    public static Vector<double> MergeLayers(Vector<double> criteriaPrio, Vector<double>[] alternativesPrio)
+    {
+        var mergedAlts = Matrix.Build.DenseOfColumnVectors(alternativesPrio);
+        return mergedAlts * criteriaPrio;
+    }
+
+
+    public static IEnumerable<double> MapResults(Vector<double> v)
+    {
+        var func = new Func<double, double>(x => x / (x + 1));
+        var mapped = v.Select(x => func(x));
+        double max = mapped.Max();
+        var final = mapped.Select(x => x * 10 / max);
+        return final;
+    }
 }

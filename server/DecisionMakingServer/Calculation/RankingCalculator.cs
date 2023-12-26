@@ -77,7 +77,7 @@ public class RankingCalculator
         foreach (var criterion in ranking.Criteria)
         {
             int m = _criteriaToMatrix[criterion.CriterionId];
-            foreach (var answer in ranking.Answers)
+            foreach (var answer in ranking.Answers.Where(a => a.CriterionId == criterion.CriterionId))
             {
                 int l = _toMatrix[answer.LeftAlternativeId];
                 int r = _toMatrix[answer.RightAlternativeId];
@@ -85,7 +85,7 @@ public class RankingCalculator
                 _alternativeMatrices[m][r, l] = 1 / answer.Value;
             }
             
-            for (var i = 0; i < _nCriteria; i++)
+            for (var i = 0; i < _nAlternatives; i++)
                 _alternativeMatrices[m][i, i] = 1;
         }
     }
@@ -94,11 +94,29 @@ public class RankingCalculator
 
     public List<Result> Calculate()
     {
-        Console.WriteLine(_criteriaMatrix);
-        foreach (var matrix in _alternativeMatrices)
-        {
-            Console.WriteLine(matrix);
-        }
-        return new List<Result>();
+        // Console.WriteLine(_criteriaMatrix);
+        // foreach (var matrix in _alternativeMatrices)
+        // {
+        //     Console.WriteLine(matrix);
+        // }
+
+        // Calculate Priorities
+        var criteriaPriority = _criteriaMatrix.GetPriorityVector(_calculationMethod);
+        var alternativesPriority = _alternativeMatrices.Select(m => m.GetPriorityVector(_calculationMethod)).ToArray();
+        
+        // Merge subrankings
+        var result = Algorithm.MergeLayers(criteriaPriority, alternativesPriority);
+        Console.WriteLine(result);
+
+        // Map numbers and convert to DTO
+        var mapped = Algorithm.MapResults(result);
+        return mapped
+            .Enumerate()
+            .Select(kv => new Result 
+            {
+            RankingId = _ranking.RankingId,
+            AlternativeId = _toDbId[kv.Item1],
+            Score = kv.Item2
+        }).ToList();
     }
 }

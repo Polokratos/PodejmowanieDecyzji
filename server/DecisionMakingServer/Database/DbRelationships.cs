@@ -31,12 +31,7 @@ public partial class DecisionDbContext
             .WithMany(a => a.Results)
             .HasForeignKey(a => a.AlternativeId)
             .OnDelete(DeleteBehavior.NoAction);
-        modelBuilder.Entity<Result>()
-            .HasOne(r => r.Criterion)
-            .WithMany(c => c.Results)
-            .HasForeignKey(a => a.CriterionId)
-            .OnDelete(DeleteBehavior.NoAction);
-        
+
         // set NO cascade to Answers on delete of Criterion
         modelBuilder.Entity<Answer>()
             .HasOne(a => a.Criterion)

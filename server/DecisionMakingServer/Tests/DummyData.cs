@@ -39,13 +39,6 @@ public class DummyData
                 new() { Description = "good", Value = 6 }
             }
         },
-        Results = new List<Result>
-        {
-            new() {AlternativeId = 5, CriterionId = 0, Place = 1},
-            new() {AlternativeId = 42, CriterionId = 0, Place = 2},
-            new() {AlternativeId = 1, CriterionId = 0, Place = 3},
-            new() {AlternativeId = 0, CriterionId = 0, Place = 4},
-        }
     };
     
     public static readonly Ranking NoIdRanking = new()
