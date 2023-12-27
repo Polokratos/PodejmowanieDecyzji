@@ -10,7 +10,7 @@ public class DummyData
         RankingId = 6969,
         Name = "A test ranking",
         Description = "lol",
-        AggregationMethod = AggregationMethod.Default,
+        AggregationMethod = AggregationMethod.JudgementMean,
         Alternatives = new List<Alternative>
         {
             new() { AlternativeId = 0, Name = "Alt1", Description = "Alt1d" },
@@ -21,7 +21,7 @@ public class DummyData
         },
         CreationDate = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
         AskOrder = "123",
-        CalculationMethod = CalculationMethod.GMM,
+        CalculationMethod = CalculationMethod.GeometricMean,
         Criteria = new List<Criterion>
         {
             new() { CriterionId = 0, Name = "Crit1", Description = "Crit1d" },
@@ -45,7 +45,7 @@ public class DummyData
     {
         Name = "A test ranking for AAA",
         Description = "lolxd",
-        AggregationMethod = AggregationMethod.Default,
+        AggregationMethod = AggregationMethod.JudgementMean,
         Alternatives = new List<Alternative>
         {
             new() { Name = "Alt31", Description = "Alt1d" },
@@ -56,7 +56,7 @@ public class DummyData
         },
         CreationDate = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
         AskOrder = "123",
-        CalculationMethod = CalculationMethod.GMM,
+        CalculationMethod = CalculationMethod.GeometricMean,
         Criteria = new List<Criterion>
         {
             new() { Name = "Crit1", Description = "Crit1d" },

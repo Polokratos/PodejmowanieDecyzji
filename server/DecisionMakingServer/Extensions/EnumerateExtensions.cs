@@ -11,14 +11,14 @@ public static class EnumerateExtensions
         foreach (var t in input)
             yield return (i++, t);
     }
-    
+
     public static int ArgMax<T>(this IEnumerable<T> sequence)
         where T : IComparable<T>
     {
         int maxIndex = -1;
-        T maxValue = default(T); // Immediately overwritten anyway
+        T maxValue = default(T);
 
-        int index = 0;
+        var index = 0;
         foreach (T value in sequence)
         {
             if (value.CompareTo(maxValue) > 0 || maxIndex == -1)
@@ -26,18 +26,10 @@ public static class EnumerateExtensions
                 maxIndex = index;
                 maxValue = value;
             }
+
             index++;
         }
+
         return maxIndex;
-    }
-    
-    public static IEnumerable<double> NormalizeTo1(this IEnumerable<double> sequence)
-    {
-        var enumerable = sequence.ToList();
-        double sum = enumerable.Sum();
-        foreach (double el in enumerable)
-        {
-            yield return el / sum;
-        }
     }
 }

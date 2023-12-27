@@ -2,5 +2,6 @@ namespace DecisionMakingServer.Models;
 
 public enum AggregationMethod
 {
-    Default
+    JudgementMean,
+    PriorityMean
 }

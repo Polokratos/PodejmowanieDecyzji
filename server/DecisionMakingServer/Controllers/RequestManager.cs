@@ -106,7 +106,7 @@ public static class RequestManager
         if (ranking == null) 
             return (null, Status.DatabaseGetError);
 
-        var calculator = new RankingCalculator(ranking);
+        var calculator = new JudgementMeanRankingCalculator(ranking);
         var results = calculator.Calculate();
 
         return (results.Select(r => r.ToDto()).ToList(), Status.Ok);

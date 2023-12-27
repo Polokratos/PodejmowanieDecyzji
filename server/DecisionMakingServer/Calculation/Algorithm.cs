@@ -45,8 +45,8 @@ public static class Algorithm
     {
         return calculationMethod switch
         {
-            CalculationMethod.EVM => CalculateEvm(matrix),
-            CalculationMethod.GMM => CalculateGmm(matrix),
+            CalculationMethod.Eigenvalue => CalculateEvm(matrix),
+            CalculationMethod.GeometricMean => CalculateGmm(matrix),
             _ => throw new NotImplementedException("Calculation method is not implemented")
         };
     }
