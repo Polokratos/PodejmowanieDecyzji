@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DecisionMakingServer.Enums;
 using DecisionMakingServer.Models;
+using DecisionMakingServer.Models.NonDbModels;
 
 namespace DecisionMakingServer.Repositories;
 
@@ -11,6 +12,21 @@ public class RankingRepository : AbstractDbRepository
         return DbContext.UserRankings
             .Where(ur => ur.UserId == userId)
             .Select(ur => ur.Ranking);
+    }
+    
+    public IEnumerable<UserRankingInfo> GetUserRankingInfo(int userId)
+    {
+        return DbContext.UserRankings
+            .Where(ur => ur.UserId == userId)
+            .Include(ur => ur.Ranking.Name)
+            .Include(ur => ur.Ranking.Description)
+            .Select(ur => new UserRankingInfo
+            {
+                RankingId = ur.RankingId,
+                Name = ur.Ranking.Name,
+                Description = ur.Ranking.Description,
+                Role = ur.UserRole
+            });
     }
 
     public Ranking? GetRankingWithData(int rankingId)
@@ -25,11 +41,12 @@ public class RankingRepository : AbstractDbRepository
     public Ranking? GetRankingWithAnswers(int rankingId)
     {
         return DbContext.Rankings
+            .Where(r => r.RankingId == rankingId)
             .Include(r => r.Alternatives)
             .Include(r => r.Criteria)
             .Include(r => r.Answers)
             .Include(r => r.CriterionAnswers)
-            .FirstOrDefault(r => r.RankingId == rankingId);
+            .FirstOrDefault();
     } 
 
     public int AddRanking(Ranking ranking)

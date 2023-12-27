@@ -6,6 +6,8 @@ namespace DecisionMakingServer.APIModels;
 public class RankingDTO
 {
     [JsonProperty("sessionToken")] public string SessionToken { get; set; } = String.Empty;
+
+    [JsonProperty("invitedUsers")] public List<string> InvitedUsers { get; set; } = new();
     [JsonProperty("rankingId")] public int RankingId { get; set; }
     [JsonProperty("name")] public string Name { get; set; } = string.Empty;
     [JsonProperty("description")] public string Description { get; set; } = String.Empty;

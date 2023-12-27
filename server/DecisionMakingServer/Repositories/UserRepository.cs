@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using DecisionMakingServer.Enums;
 using DecisionMakingServer.Models;
 
@@ -25,6 +26,11 @@ public class UserRepository : AbstractDbRepository
     public User? GetUser(string username)
     {
         return DbContext.Users.FirstOrDefault(u => u.Username == username);
+    }
+
+    public IEnumerable<int> GetUsersByNames(IEnumerable<string> names)
+    {
+        return DbContext.Users.Where(u => names.Contains(u.Username)).Select(u => u.UserId).ToList();
     }
 
     public void ListAll()

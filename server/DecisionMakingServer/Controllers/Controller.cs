@@ -1,86 +1,79 @@
 using DecisionMakingServer.APIModels;
 using DecisionMakingServer.Enums;
-using DecisionMakingServer.Models;
-using DecisionMakingServer.Repositories;
-using DecisionMakingServer.Session;
-using DecisionMakingServer.Tests;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
 
-namespace DecisionMakingServer.Controllers
+namespace DecisionMakingServer.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class Controller : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class Controller : ControllerBase
+    [EnableCors]
+    [HttpPost, Route("login")]
+    [ProducesResponseType(typeof(string), 200)]
+    public IActionResult Login([FromBody] UserLoginDTO userLoginDto)
     {
-        [EnableCors]
-        [HttpPost, Route("login")]
-        [ProducesResponseType(typeof(string), 200)]
-        public IActionResult Login([FromBody] UserLoginDTO userLoginDto)
-        {
-            Console.WriteLine($"Received Login request: {userLoginDto.Username}, {userLoginDto.Password}");
-            (string sessionToken, Status status) = RequestManager.Login(userLoginDto);
-            return status == Status.Ok
-                ? Ok(sessionToken) 
-                : StatusCode(400, status.ToString());
-        }
+        Console.WriteLine($"Received Login request: {userLoginDto.Username}, {userLoginDto.Password}");
+        (string sessionToken, Status status) = RequestManager.Login(userLoginDto);
+        return status == Status.Ok
+            ? Ok(sessionToken) 
+            : StatusCode(400, status.ToString());
+    }
 
-        
-        [EnableCors]
-        [HttpPost, Route("headers")]
-        [ProducesResponseType(typeof(IEnumerable<RankingHeaderDTO>), 200)]
-        public IActionResult Headers([FromBody] string sessionToken)
-        {
-            (var userRankings, Status status) = RequestManager.GetUserRankings(sessionToken);
-            return status == Status.Ok
-                ? Ok(userRankings) 
-                : StatusCode(400, status.ToString());
-        }
+    
+    [EnableCors]
+    [HttpPost, Route("headers")]
+    [ProducesResponseType(typeof(IEnumerable<RankingHeaderDTO>), 200)]
+    public IActionResult Headers([FromBody] string sessionToken)
+    {
+        (var userRankings, Status status) = RequestManager.GetUserRankingIds(sessionToken);
+        return status == Status.Ok
+            ? Ok(userRankings) 
+            : StatusCode(400, status.ToString());
+    }
 
-        
-        [EnableCors]
-        [HttpPost, Route("ranking/{rankingId:int}")]
-        [ProducesResponseType(typeof(RankingDTO), 200)]
-        public IActionResult GetRanking([FromBody] string sessionToken, int rankingId)
-        {
-            if (rankingId == -1)
-                return Ok(DummyData.RankingDto);
+    
+    [EnableCors]
+    [HttpPost, Route("ranking/{rankingId:int}")]
+    [ProducesResponseType(typeof(RankingDTO), 200)]
+    public IActionResult GetRanking([FromBody] string sessionToken, int rankingId)
+    {
+        var r = RequestManager.GetRankingData(sessionToken, rankingId);
+        return Ok(r);
+    }
 
-            var r = RequestManager.GetRankingData(sessionToken, rankingId);
-            return Ok(r);
-        }
+    
+    [EnableCors]
+    [HttpPost, Route("create")]
+    public IActionResult CreateRanking([FromBody] RankingDTO rankingDto)
+    {
+        string sessionToken = rankingDto.SessionToken;
+        Status s = RequestManager.CreateRanking(rankingDto, sessionToken);
+        return s == Status.Ok
+            ? Ok()
+            : StatusCode(400, s);
+    }
 
-        
-        [EnableCors]
-        [HttpPost, Route("create")]
-        public IActionResult CreateRanking([FromBody] RankingDTO rankingDto)
-        {
-            string sessionToken = rankingDto.SessionToken;
-            Status s = RequestManager.CreateRanking(rankingDto, sessionToken);
-            return s == Status.Ok
-                ? Ok()
-                : StatusCode(400, s);
-        }
-
-        
-        [EnableCors]
-        [HttpPost, Route("submit")]
-        public IActionResult Submit([FromBody] RankingPostDTO rankingData)
-        {
-            Status s = RequestManager.AddRankingAnswers(rankingData);
-            return s == Status.Ok
-                ? Ok()
-                : StatusCode(400, s);
-        }
+    
+    [EnableCors]
+    [HttpPost, Route("submit")]
+    public IActionResult Submit([FromBody] RankingPostDTO rankingData)
+    {
+        Status s = RequestManager.AddRankingAnswers(rankingData);
+        return s == Status.Ok
+            ? Ok()
+            : StatusCode(400, s);
+    }
 
 
-        [EnableCors]
-        [HttpPost, Route("results/{rankingId:int}")]
-        public IActionResult CalculateResults([FromBody] string sessionToken, int rankingId)
-        {
-            var (results, s) = RequestManager.GetRankingResults(sessionToken, rankingId);
-            return Ok(results);
-        }
+    [EnableCors]
+    [HttpPost, Route("results/{rankingId:int}")]
+    public IActionResult CalculateResults([FromBody] string sessionToken, int rankingId)
+    {
+        var (results, s) = RequestManager.GetRankingResults(sessionToken, rankingId);
+        return s == Status.Ok
+            ? Ok(results)
+            : StatusCode(400, s);
     }
 }

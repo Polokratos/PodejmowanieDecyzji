@@ -2,6 +2,7 @@ using DecisionMakingServer.APIModels;
 using DecisionMakingServer.Calculation;
 using DecisionMakingServer.Enums;
 using DecisionMakingServer.Models;
+using DecisionMakingServer.Models.NonDbModels;
 using DecisionMakingServer.Repositories;
 using DecisionMakingServer.Session;
 
@@ -9,48 +10,53 @@ namespace DecisionMakingServer.Controllers;
 
 public static class RequestManager
 {
-    private static readonly SessionManager _sessionManager = new();
-    private static readonly RankingRepository _rankingRepository = new();
-    private static readonly AnswerRepository _answerRepository = new();
+    private static readonly SessionManager SessionManager = new();
+    private static readonly RankingRepository RankingRepository = new();
+    private static readonly AnswerRepository AnswerRepository = new();
+    private static readonly UserRepository UserRepository = new();
     
     public static (string, Status) Login(UserLoginDTO dto)
     {
-        return _sessionManager.Login(dto.Username, dto.Password);
+        return SessionManager.Login(dto.Username, dto.Password);
     }
 
-    public static (IEnumerable<RankingHeaderDTO>, Status) GetUserRankings(string sessionToken)
+    public static (IEnumerable<RankingHeaderDTO>, Status) GetUserRankingIds(string sessionToken)
     {
-        int userId = _sessionManager.GetUserId(sessionToken);
+        int userId = SessionManager.GetUserId(sessionToken);
         if (userId == -1)
             return (new List<RankingHeaderDTO>(), Status.InvalidSession);
 
-        var rankings = _rankingRepository.GetUserRankings(userId)
-            .Select(r => new RankingHeaderDTO
-            {
-                Id = r.RankingId,
-                Name = r.Name,
-                Description = r.Description
-            });
+        var rankings = RankingRepository.GetUserRankingInfo(userId)
+            .Select(ur => ur.ToRankingHeaderDto());
 
         return (rankings, Status.Ok);
     }
 
     public static Status CreateRanking(RankingDTO dto, string sessionToken)
     {
-        int userId = _sessionManager.GetUserId(sessionToken);
+        int userId = SessionManager.GetUserId(sessionToken);
         if (userId == -1)
             return Status.InvalidSession;
-        if (_rankingRepository.UserRankingExists(userId, dto.Name))
+        if (RankingRepository.UserRankingExists(userId, dto.Name))
             return Status.AlreadyExistsInDb;
         
         Ranking ranking = dto.ToRanking();
+        
         ranking.UserRankings.Add(new UserRanking
         {
-            UserId = _sessionManager.GetUserId(sessionToken),
+            UserId = SessionManager.GetUserId(sessionToken),
             UserRole = UserRole.Owner
         });
 
-        return _rankingRepository.AddRanking(ranking) > 0
+        var invitedUsers = UserRepository.GetUsersByNames(dto.InvitedUsers);
+        ranking.UserRankings.AddRange(
+            invitedUsers.Select(u => new UserRanking
+            {
+                UserId = u,
+                UserRole = UserRole.Assignee
+            }));
+
+        return RankingRepository.AddRanking(ranking) > 0
             ? Status.Ok
             : Status.DatabaseAddError;
     }
@@ -58,7 +64,7 @@ public static class RequestManager
 
     public static Status AddRankingAnswers(RankingPostDTO dto)
     {
-        int userId = _sessionManager.GetUserId(dto.SessionToken);
+        int userId = SessionManager.GetUserId(dto.SessionToken);
         if (userId == -1)
             return Status.InvalidSession;
 
@@ -73,17 +79,17 @@ public static class RequestManager
             a.UserId = userId;
         });
         
-        return _answerRepository.AddAnswers(answers);
+        return AnswerRepository.AddAnswers(answers);
     }
 
 
     public static (RankingDTO?, Status) GetRankingData(string sessionToken, int rankingId)
     {
-        int userId = _sessionManager.GetUserId(sessionToken);
+        int userId = SessionManager.GetUserId(sessionToken);
         if (userId == -1)
             return (null, Status.InvalidSession);
 
-        Ranking? ranking = _rankingRepository.GetRankingWithData(rankingId);
+        Ranking? ranking = RankingRepository.GetRankingWithData(rankingId);
         return ranking == null 
             ? (null, Status.DatabaseGetError) 
             : (ranking.ToDto(), Status.Ok);
@@ -92,11 +98,11 @@ public static class RequestManager
 
     public static (List<ResultDTO>?, Status) GetRankingResults(string sessionToken, int rankingId)
     {
-        int userId = _sessionManager.GetUserId(sessionToken);
+        int userId = SessionManager.GetUserId(sessionToken);
         if (userId == -1)
             return (null, Status.InvalidSession);
 
-        var ranking = _rankingRepository.GetRankingWithAnswers(rankingId);
+        var ranking = RankingRepository.GetRankingWithAnswers(rankingId);
         if (ranking == null) 
             return (null, Status.DatabaseGetError);
 
@@ -109,6 +115,6 @@ public static class RequestManager
 
     public static int GetUserId(string sessionToken)
     {
-        return _sessionManager.GetUserId(sessionToken);
+        return SessionManager.GetUserId(sessionToken);
     }
 }
