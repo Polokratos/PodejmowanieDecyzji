@@ -8,5 +8,6 @@ public enum Status
     AlreadyExistsInDb,
     DatabaseAddError,
     DatabaseGetError,
-    InvalidSession
+    InvalidSession,
+    Forbidden
 }

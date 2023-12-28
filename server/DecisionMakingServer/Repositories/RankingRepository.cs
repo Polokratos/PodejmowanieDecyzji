@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using DecisionMakingServer.Enums;
 using DecisionMakingServer.Models;
 using DecisionMakingServer.Models.NonDbModels;
+using DecisionMakingServer.Serialization;
 
 namespace DecisionMakingServer.Repositories;
 
@@ -27,6 +28,14 @@ public class RankingRepository : AbstractDbRepository
                 Description = ur.Ranking.Description,
                 Role = ur.UserRole
             });
+    }
+
+    public UserRole? GetUserRole(int userId, int rankingId)
+    {
+        return DbContext.UserRankings
+            .Where(ur => ur.UserId == userId && ur.RankingId == rankingId)
+            .Select(ur => ur.UserRole)
+            .FirstOrDefault();
     }
 
     public Ranking? GetRankingWithData(int rankingId)
@@ -91,5 +100,18 @@ public class RankingRepository : AbstractDbRepository
         {
             Console.WriteLine($"{ranking.RankingId, 5} | {ranking.Name, 20} | {ranking.CreationDate, 20}");
         }
+    }
+
+    public List<UserRankingJsonBase> GetRankingUserRoles(int rankingId)
+    {
+        return DbContext.UserRankings
+            .Where(ur => ur.RankingId == rankingId)
+            .Include(ur => ur.User)
+            .Select(ur => new UserRankingJsonBase
+            {
+                UserId = ur.UserId,
+                Username = ur.User.Username,
+                Role = ur.UserRole
+            }).ToList();
     }
 }

@@ -1,3 +1,5 @@
+using DecisionMakingServer.Serialization;
+
 namespace DecisionMakingServer.Models;
 
 public class Answer
@@ -20,4 +22,21 @@ public class Answer
     public Alternative RightAlternative { get; set; } = null!;
     
     public float Value { get; set; }
+}
+
+
+public static class AnswerExtensions
+{
+    public static AnswerJsonBase ToJsonBase(this Answer a)
+    {
+        return new AnswerJsonBase
+        {
+            AnswerId = a.AnswerId,
+            UserId = a.UserId,
+            CriterionId = a.CriterionId,
+            LeftAlternativeId = a.LeftAlternativeId,
+            RightAlternativeId = a.RightAlternativeId,
+            Value = a.Value
+        };
+    }
 }

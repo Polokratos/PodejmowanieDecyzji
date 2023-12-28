@@ -5,6 +5,7 @@ using DecisionMakingServer.Models;
 using DecisionMakingServer.Models.NonDbModels;
 using DecisionMakingServer.Repositories;
 using DecisionMakingServer.Session;
+using Newtonsoft.Json;
 
 namespace DecisionMakingServer.Controllers;
 
@@ -14,6 +15,7 @@ public static class RequestManager
     private static readonly RankingRepository RankingRepository = new();
     private static readonly AnswerRepository AnswerRepository = new();
     private static readonly UserRepository UserRepository = new();
+    private static readonly ResultRepository ResultRepository = new();
     
     public static (string, Status) Login(UserLoginDTO dto)
     {
@@ -96,25 +98,61 @@ public static class RequestManager
     }
 
 
+    private static (List<Result>?, Status) CalculateResults(int rankingId)
+    {
+        var ranking = RankingRepository.GetRankingWithAnswers(rankingId);
+        if (ranking == null) 
+            return (null, Status.DatabaseGetError);
+        
+        ResultRepository.ClearResults(rankingId);
+
+        var calculator = new JudgementMeanRankingCalculator(ranking);
+        var results = calculator.Calculate();
+
+        return (results.ToList(), Status.Ok);
+    }
+
+
     public static (List<ResultDTO>?, Status) GetRankingResults(string sessionToken, int rankingId)
     {
         int userId = SessionManager.GetUserId(sessionToken);
         if (userId == -1)
             return (null, Status.InvalidSession);
+        
+        if (RankingRepository.GetUserRole(userId, rankingId) != UserRole.Owner)
+            return (null, Status.Forbidden);
 
+        var (resultsRaw, status) = CalculateResults(rankingId);
+        return (resultsRaw?.Select(r => r.ToDto()).ToList(), status);
+    }
+
+
+    public static (string?, Status) GetJson(string sessionToken, int rankingId)
+    {
+        int userId = SessionManager.GetUserId(sessionToken);
+        if (userId == -1)
+            return (null, Status.InvalidSession);
+        
+        if (RankingRepository.GetUserRole(userId, rankingId) != UserRole.Owner)
+            return (null, Status.Forbidden);
+        
         var ranking = RankingRepository.GetRankingWithAnswers(rankingId);
         if (ranking == null) 
             return (null, Status.DatabaseGetError);
 
-        var calculator = new JudgementMeanRankingCalculator(ranking);
-        var results = calculator.Calculate();
+        ranking.Results = ResultRepository.GetResults(rankingId).ToList();
+        var users = RankingRepository.GetRankingUserRoles(rankingId);
+        
+        var jsonBase = ranking.ToJsonBase(users);
 
-        return (results.Select(r => r.ToDto()).ToList(), Status.Ok);
-    }
-    
-
-    public static int GetUserId(string sessionToken)
-    {
-        return SessionManager.GetUserId(sessionToken);
+        string json = JsonConvert.SerializeObject(
+            jsonBase, 
+            Formatting.Indented,
+            new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            });
+        return (json, Status.Ok);
     }
 }

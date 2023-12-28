@@ -73,7 +73,7 @@ public class PriorityMeanRankingCalculator : RankingCalculator
              .Select(um => um.Value.CriteriaMatrix.GetPriorityVector(CalculationMethod))
              .Aggregate((v1, v2) => v1 + v2) / _userMatrices.Count;
 
-        var alternativesPriority = _userMatrices
+        var alternativesPriorities = _userMatrices
             .Select(um => um.Value.AltMatrices.Select(am => am.GetPriorityVector(CalculationMethod)))
             .Aggregate((pvarr1, pvarr2) => 
                 pvarr1.Zip(pvarr2).Select(vectors => vectors.First + vectors.Second)
@@ -82,7 +82,7 @@ public class PriorityMeanRankingCalculator : RankingCalculator
             .ToArray();
         
         
-        var result = Algorithm.MergeLayers(criteriaPriority, alternativesPriority);
+        var result = Algorithm.MergeLayers(criteriaPriority, alternativesPriorities);
         Console.WriteLine(result);
         
         var mapped = Algorithm.MapResults(result);

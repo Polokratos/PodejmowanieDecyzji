@@ -76,4 +76,15 @@ public class Controller : ControllerBase
             ? Ok(results)
             : StatusCode(400, s);
     }
+
+
+    [EnableCors]
+    [HttpPost, Route("getjson/{rankingId:int}")]
+    public IActionResult GetJson([FromBody] string sessionToken, int rankingId)
+    {
+        (string? json, var status) = RequestManager.GetJson(sessionToken, rankingId);
+        return status == Status.Ok
+            ? Ok(json)
+            : StatusCode(400, status);
+    }
 }

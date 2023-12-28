@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using DecisionMakingServer.APIModels;
+using DecisionMakingServer.Serialization;
 
 namespace DecisionMakingServer.Models;
 
@@ -46,7 +47,29 @@ public static class RankingExtensions
             Scale = r.Scale?.ScaleValues.Select(sv => sv.ToDto()).ToList(),
             Alternatives = r.Alternatives.Select(a => a.ToDto()).ToList(),
             Criteria = r.Criteria.Select(c => c.ToDto()).ToList(),
-            Results = r.Results.Select(r => r.ToDto()).ToList(),
+            Results = r.Results.Select(res => res.ToDto()).ToList(),
+        };
+    }
+
+    public static RankingJsonBase ToJsonBase(this Ranking r, List<UserRankingJsonBase> users)
+    {
+        return new RankingJsonBase
+        {
+            RankingId = 0,
+            Name = r.Name,
+            Description = r.Description,
+            CalculationMethod = r.CalculationMethod,
+            AggregationMethod = r.AggregationMethod,
+            IsComplete = r.IsComplete,
+            AskOrder = r.AskOrder,
+            CreationDate = r.CreationDate,
+            EndDate = r.EndDate,
+            Scale = r.Scale?.ScaleValues.Select(s => s.ToDto()).ToList(),
+            Alternatives = r.Alternatives.Select(a => a.ToDto()).ToList(),
+            Criteria = r.Criteria.Select(c => c.ToDto()).ToList(),
+            Results = r.Results.Select(res => res.ToDto()).ToList(),
+            Users = users,
+            Answers = r.Answers.Select(a => a.ToJsonBase()).ToList()
         };
     }
 }
