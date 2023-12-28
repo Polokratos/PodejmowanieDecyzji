@@ -107,9 +107,11 @@ public static class RequestManager
         ResultRepository.ClearResults(rankingId);
 
         var calculator = new JudgementMeanRankingCalculator(ranking);
-        var results = calculator.Calculate();
+        var results = calculator.Calculate().ToList();
+        
+        ResultRepository.AddResults(results);
 
-        return (results.ToList(), Status.Ok);
+        return (results, Status.Ok);
     }
 
 

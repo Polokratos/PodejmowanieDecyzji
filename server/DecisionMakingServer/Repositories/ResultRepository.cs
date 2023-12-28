@@ -14,5 +14,10 @@ public class ResultRepository : AbstractDbRepository
     public IEnumerable<Result> GetResults(int rankingId)
     {
         return DbContext.Results.Where(r => r.RankingId == rankingId);
-    } 
+    }
+
+    public void AddResults(IEnumerable<Result> results)
+    {
+        DbContext.AddRange(results);
+    }
 }

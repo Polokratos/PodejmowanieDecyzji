@@ -42,18 +42,6 @@ public class Program
         
         userRepository.ListAll();
         rankingRepository.ListUserRankings(aaaid);
-        
-
-        var ranking = rankingRepository.GetRankingWithAnswers(18);
-        var tester = new CalculatorTests(ranking);
-        tester.Test();
-
-        // var tester = new ControllerTest();
-        // //tester.AddRankingTest(DummyData.NoIdRanking);
-        // var ranking = tester.GetRankingTest(9);
-        // if (ranking == null) return;
-        // Console.WriteLine(ranking.Alternatives.Count);
-        // tester.AddAnswersTest(DummyData.PostDto(ranking));
 
         //
         // UNCOMMENT BELOW TO RUN IN CONTINOUS MODE 

@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using DecisionMakingServer.Enums;
 using DecisionMakingServer.Models;
@@ -47,6 +48,7 @@ public class RankingRepository : AbstractDbRepository
             .FirstOrDefault(r => r.RankingId == rankingId);
     }
 
+    [SuppressMessage("ReSharper.DPA", "DPA0007: Large number of DB records")]
     public Ranking? GetRankingWithAnswers(int rankingId)
     {
         return DbContext.Rankings

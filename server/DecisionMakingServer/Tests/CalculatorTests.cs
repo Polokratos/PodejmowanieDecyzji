@@ -1,22 +1,20 @@
 using DecisionMakingServer.Calculation;
 using DecisionMakingServer.Models;
+using DecisionMakingServer.Repositories;
 
 namespace DecisionMakingServer.Tests;
 
-public class CalculatorTests
+public static class CalculatorTests
 {
-    private readonly RankingCalculator _jmCalculator, _pmCalculator;
-
-    public CalculatorTests(Ranking ranking)
+    public static void Run()
     {
-        _jmCalculator = new JudgementMeanRankingCalculator(ranking);
-        _pmCalculator = new PriorityMeanRankingCalculator(ranking);
-    }
+        var repo = new RankingRepository();
+        var ranking = repo.GetRankingWithAnswers(18) ?? throw new ArgumentNullException("repo.GetRankingWithAnswers(18)");
         
+        RankingCalculator jmCalculator = new JudgementMeanRankingCalculator(ranking);
+        RankingCalculator pmCalculator = new PriorityMeanRankingCalculator(ranking);
         
-    public void Test()
-    {
-        _jmCalculator.Calculate();
-        _pmCalculator.Calculate();
+        jmCalculator.Calculate();
+        pmCalculator.Calculate();
     }
 }
