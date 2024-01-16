@@ -20,8 +20,7 @@ public class RankingRepository : AbstractDbRepository
     {
         return DbContext.UserRankings
             .Where(ur => ur.UserId == userId)
-            .Include(ur => ur.Ranking.Name)
-            .Include(ur => ur.Ranking.Description)
+            .Include(ur => ur.Ranking)
             .Select(ur => new UserRankingInfo
             {
                 RankingId = ur.RankingId,

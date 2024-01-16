@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { SurveyBodyComponent } from "./SurveyBodyComponent";
+import { SurveyBodyComponent, mapAnswerToServer } from "./SurveyBodyComponent";
 import { Answer, Question, SurveyField, SurveyHeader, TestSurveyDetails } from "../../types/types";
 import { AlternativeDTO, CriterionDTO, RankingAnswerDTO, RankingPostDTO, fetchService } from "../../services/fetchService";
 
@@ -68,12 +68,13 @@ export const SurveyComponent = (props:SurveyHeader) : JSX.Element => {
                 criterionID : q.id,
                 leftAlternativeID : q.id1,
                 rightAlternativeID : q.id2,
-                value: q.answer ?? NaN
+                value:  mapAnswerToServer(q.answer ?? 0)
             }
         }
         const alternativesAnswers : RankingAnswerDTO[] = alternativesHandler.questions.map(toDTO)
         const criteriaAnswers : RankingAnswerDTO[] = [] //criteriaHandler.questions.map(toDTO) criteria are broken
         const body : RankingPostDTO = {
+            sessionToken : null,
             rankingID : id,
             answers : [...alternativesAnswers,...criteriaAnswers]
         }

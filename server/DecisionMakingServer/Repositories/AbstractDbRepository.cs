@@ -6,7 +6,7 @@ public class AbstractDbRepository
 
     protected AbstractDbRepository()
     {
-        DbContext = DbContextProvider.DbContext;
+        DbContext = new DecisionDbContext();
     }
 
     protected int SaveChanges()

@@ -16,6 +16,7 @@ export type RankingAnswerDTO = {
     value: number,
 }
 export type RankingPostDTO = {
+    sessionToken: string,
     rankingID: number,
     answers: RankingAnswerDTO[]
 }
@@ -66,6 +67,9 @@ const sendRequest = <Rstype>(endpoint:string,body:any,isText:boolean=false) : Pr
 const login = (body:UserLoginDTO) => sendRequest<SessionToken>(LOGIN_ENDPOINT,body,true);
 const getHeaders = () => sendRequest<RankingHeaderDTO[]>(HEADER_ENDPOINT,stok());
 const getSurvey = (id:number) => sendRequest<RankingDTO>(SURVEY_ENDPOINTS+"/"+id.toString(),stok());
-const submitAnswer = (body:RankingPostDTO) => sendRequest<void>(SUBMIT_ENDPOINT,body);
+const submitAnswer = (body:RankingPostDTO) => {
+    body.sessionToken = stok();
+    sendRequest<void>(SUBMIT_ENDPOINT,body);
+}
 const stok = () => window.sessionStorage.getItem("sessionKey");
 export const fetchService = {login,getHeaders,getSurvey,submitAnswer}

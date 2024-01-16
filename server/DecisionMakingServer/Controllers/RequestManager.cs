@@ -12,10 +12,6 @@ namespace DecisionMakingServer.Controllers;
 public static class RequestManager
 {
     private static readonly SessionManager SessionManager = new();
-    private static readonly RankingRepository RankingRepository = new();
-    private static readonly AnswerRepository AnswerRepository = new();
-    private static readonly UserRepository UserRepository = new();
-    private static readonly ResultRepository ResultRepository = new();
     
     public static (string, Status) Login(UserLoginDTO dto)
     {
@@ -28,7 +24,8 @@ public static class RequestManager
         if (userId == -1)
             return (new List<RankingHeaderDTO>(), Status.InvalidSession);
 
-        var rankings = RankingRepository.GetUserRankingInfo(userId)
+        var repo = new RankingRepository();
+        var rankings = repo.GetUserRankingInfo(userId)
             .Select(ur => ur.ToRankingHeaderDto());
 
         return (rankings, Status.Ok);
@@ -39,7 +36,9 @@ public static class RequestManager
         int userId = SessionManager.GetUserId(sessionToken);
         if (userId == -1)
             return Status.InvalidSession;
-        if (RankingRepository.UserRankingExists(userId, dto.Name))
+
+        var rankingRepo = new RankingRepository();
+        if (rankingRepo.UserRankingExists(userId, dto.Name))
             return Status.AlreadyExistsInDb;
         
         Ranking ranking = dto.ToRanking();
@@ -50,7 +49,8 @@ public static class RequestManager
             UserRole = UserRole.Owner
         });
 
-        var invitedUsers = UserRepository.GetUsersByNames(dto.InvitedUsers);
+        var userRepo = new UserRepository();
+        var invitedUsers = userRepo.GetUsersByNames(dto.InvitedUsers);
         ranking.UserRankings.AddRange(
             invitedUsers.Select(u => new UserRanking
             {
@@ -58,7 +58,7 @@ public static class RequestManager
                 UserRole = UserRole.Assignee
             }));
 
-        return RankingRepository.AddRanking(ranking) > 0
+        return rankingRepo.AddRanking(ranking) > 0
             ? Status.Ok
             : Status.DatabaseAddError;
     }
@@ -80,8 +80,9 @@ public static class RequestManager
             a.RankingId = rankingId;
             a.UserId = userId;
         });
-        
-        return AnswerRepository.AddAnswers(answers);
+
+        var answerRepo = new AnswerRepository();
+        return answerRepo.AddAnswers(answers);
     }
 
 
@@ -91,7 +92,8 @@ public static class RequestManager
         if (userId == -1)
             return (null, Status.InvalidSession);
 
-        Ranking? ranking = RankingRepository.GetRankingWithData(rankingId);
+        var rankingRepo = new RankingRepository();
+        Ranking? ranking = rankingRepo.GetRankingWithData(rankingId);
         return ranking == null 
             ? (null, Status.DatabaseGetError) 
             : (ranking.ToDto(), Status.Ok);
@@ -100,16 +102,18 @@ public static class RequestManager
 
     private static (List<Result>?, Status) CalculateResults(int rankingId)
     {
-        var ranking = RankingRepository.GetRankingWithAnswers(rankingId);
+        var rankingRepo = new RankingRepository();
+        var ranking = rankingRepo.GetRankingWithAnswers(rankingId);
         if (ranking == null) 
             return (null, Status.DatabaseGetError);
-        
-        ResultRepository.ClearResults(rankingId);
+
+        var resultRepo = new ResultRepository();
+        resultRepo.ClearResults(rankingId);
 
         var calculator = new JudgementMeanRankingCalculator(ranking);
         var results = calculator.Calculate().ToList();
         
-        ResultRepository.AddResults(results);
+        resultRepo.AddResults(results);
 
         return (results, Status.Ok);
     }
@@ -120,8 +124,9 @@ public static class RequestManager
         int userId = SessionManager.GetUserId(sessionToken);
         if (userId == -1)
             return (null, Status.InvalidSession);
-        
-        if (RankingRepository.GetUserRole(userId, rankingId) != UserRole.Owner)
+
+        var rankingRepo = new RankingRepository();
+        if (rankingRepo.GetUserRole(userId, rankingId) != UserRole.Owner)
             return (null, Status.Forbidden);
 
         var (resultsRaw, status) = CalculateResults(rankingId);
@@ -134,16 +139,18 @@ public static class RequestManager
         int userId = SessionManager.GetUserId(sessionToken);
         if (userId == -1)
             return (null, Status.InvalidSession);
-        
-        if (RankingRepository.GetUserRole(userId, rankingId) != UserRole.Owner)
+
+        var rankingRepo = new RankingRepository();
+        if (rankingRepo.GetUserRole(userId, rankingId) != UserRole.Owner)
             return (null, Status.Forbidden);
         
-        var ranking = RankingRepository.GetRankingWithAnswers(rankingId);
+        var ranking = rankingRepo.GetRankingWithAnswers(rankingId);
         if (ranking == null) 
             return (null, Status.DatabaseGetError);
 
-        ranking.Results = ResultRepository.GetResults(rankingId).ToList();
-        var users = RankingRepository.GetRankingUserRoles(rankingId);
+        var resultRepo = new ResultRepository();
+        ranking.Results = resultRepo.GetResults(rankingId).ToList();
+        var users = rankingRepo.GetRankingUserRoles(rankingId);
         
         var jsonBase = ranking.ToJsonBase(users);
 

@@ -19,19 +19,16 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        using var db = DbContextProvider.DbContext;
+        using var db = new DecisionDbContext();
         
         UserRepository userRepository = new();
         RankingRepository rankingRepository = new();
-        
-        
         // AAA BBB
         if (userRepository.GetUser("aaa") == null)
         {
             byte[] pass = Encoding.ASCII.GetBytes("bbb");
             userRepository.AddUser("aaa", pass);
         }
-        
         // New ranking for AAA BBB
         int aaaid = userRepository.GetUser("aaa").UserId;
         if (rankingRepository.GetUserRankings(aaaid).ToList().Count == 0)

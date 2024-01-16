@@ -2,6 +2,7 @@ using DecisionMakingServer.APIModels;
 using DecisionMakingServer.Enums;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace DecisionMakingServer.Controllers;
 
@@ -27,6 +28,7 @@ public class Controller : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<RankingHeaderDTO>), 200)]
     public IActionResult Headers([FromBody] string sessionToken)
     {
+        Console.WriteLine($"Received Headers request: st={sessionToken}");
         (var userRankings, Status status) = RequestManager.GetUserRankingIds(sessionToken);
         return status == Status.Ok
             ? Ok(userRankings) 
@@ -39,7 +41,9 @@ public class Controller : ControllerBase
     [ProducesResponseType(typeof(RankingDTO), 200)]
     public IActionResult GetRanking([FromBody] string sessionToken, int rankingId)
     {
-        var r = RequestManager.GetRankingData(sessionToken, rankingId);
+        Console.WriteLine($"Received GetRanking request: st={sessionToken}, id={rankingId}");
+        var (r, _) = RequestManager.GetRankingData(sessionToken, rankingId);
+        Console.WriteLine($"Returning {r?.Name}");
         return Ok(r);
     }
 
@@ -48,7 +52,8 @@ public class Controller : ControllerBase
     [HttpPost, Route("create")]
     public IActionResult CreateRanking([FromBody] RankingDTO rankingDto)
     {
-        string sessionToken = rankingDto.SessionToken;
+        Console.WriteLine($"Received Create request: st={rankingDto.SessionToken}");
+        string sessionToken = rankingDto.SessionToken ?? "";
         Status s = RequestManager.CreateRanking(rankingDto, sessionToken);
         return s == Status.Ok
             ? Ok()
@@ -60,9 +65,10 @@ public class Controller : ControllerBase
     [HttpPost, Route("submit")]
     public IActionResult Submit([FromBody] RankingPostDTO rankingData)
     {
+        Console.WriteLine($"Received Submit request: st={rankingData.SessionToken}");
         Status s = RequestManager.AddRankingAnswers(rankingData);
         return s == Status.Ok
-            ? Ok()
+            ? Ok("{}")
             : StatusCode(400, s);
     }
 
