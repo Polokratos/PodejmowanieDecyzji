@@ -1,0 +1,773 @@
+{                              
+  "$id": "1",                  
+  "Users": [],                 
+  "Answers": [                 
+    {                          
+      "$id": "2",              
+      "AnswerId": 693,         
+      "UserId": 1,             
+      "CriterionId": 44,       
+      "LeftAlternativeId": 60, 
+      "RightAlternativeId": 61,
+      "Value": 0.33333334      
+    },                         
+    {                          
+      "$id": "3",              
+      "AnswerId": 694,        
+      "UserId": 1,            
+      "CriterionId": 44,      
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "4",
+      "AnswerId": 695,
+      "UserId": 1,
+      "CriterionId": 44,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 3.0
+    },
+    {
+      "$id": "5",
+      "AnswerId": 696,
+      "UserId": 2,
+      "CriterionId": 44,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 0.5
+    },
+    {
+      "$id": "6",
+      "AnswerId": 697,
+      "UserId": 2,
+      "CriterionId": 44,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "7",
+      "AnswerId": 698,
+      "UserId": 2,
+      "CriterionId": 44,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 2.0
+    },
+    {
+      "$id": "8",
+      "AnswerId": 699,
+      "UserId": 5,
+      "CriterionId": 44,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 0.33333334
+    },
+    {
+      "$id": "9",
+      "AnswerId": 700,
+      "UserId": 5,
+      "CriterionId": 44,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "10",
+      "AnswerId": 701,
+      "UserId": 5,
+      "CriterionId": 44,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 3.0
+    },
+    {
+      "$id": "11",
+      "AnswerId": 702,
+      "UserId": 4,
+      "CriterionId": 44,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 0.33333334
+    },
+    {
+      "$id": "12",
+      "AnswerId": 703,
+      "UserId": 4,
+      "CriterionId": 44,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "13",
+      "AnswerId": 704,
+      "UserId": 4,
+      "CriterionId": 44,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 3.0
+    },
+    {
+      "$id": "14",
+      "AnswerId": 705,
+      "UserId": 1,
+      "CriterionId": 44,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 0.33333334
+    },
+    {
+      "$id": "15",
+      "AnswerId": 706,
+      "UserId": 1,
+      "CriterionId": 44,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "16",
+      "AnswerId": 707,
+      "UserId": 1,
+      "CriterionId": 44,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 3.0
+    },
+    {
+      "$id": "17",
+      "AnswerId": 708,
+      "UserId": 1,
+      "CriterionId": 45,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 2.0
+    },
+    {
+      "$id": "18",
+      "AnswerId": 709,
+      "UserId": 1,
+      "CriterionId": 45,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 4.0
+    },
+    {
+      "$id": "19",
+      "AnswerId": 710,
+      "UserId": 1,
+      "CriterionId": 45,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 3.0
+    },
+    {
+      "$id": "20",
+      "AnswerId": 711,
+      "UserId": 2,
+      "CriterionId": 45,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 5.0
+    },
+    {
+      "$id": "21",
+      "AnswerId": 712,
+      "UserId": 2,
+      "CriterionId": 45,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "22",
+      "AnswerId": 713,
+      "UserId": 2,
+      "CriterionId": 45,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 0.33333334
+    },
+    {
+      "$id": "23",
+      "AnswerId": 714,
+      "UserId": 5,
+      "CriterionId": 45,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 1.0
+    },
+    {
+      "$id": "24",
+      "AnswerId": 715,
+      "UserId": 5,
+      "CriterionId": 45,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 2.0
+    },
+    {
+      "$id": "25",
+      "AnswerId": 716,
+      "UserId": 5,
+      "CriterionId": 45,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "26",
+      "AnswerId": 717,
+      "UserId": 4,
+      "CriterionId": 45,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 3.0
+    },
+    {
+      "$id": "27",
+      "AnswerId": 718,
+      "UserId": 4,
+      "CriterionId": 45,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 0.5
+    },
+    {
+      "$id": "28",
+      "AnswerId": 719,
+      "UserId": 4,
+      "CriterionId": 45,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 2.0
+    },
+    {
+      "$id": "29",
+      "AnswerId": 720,
+      "UserId": 1,
+      "CriterionId": 46,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 0.33333334
+    },
+    {
+      "$id": "30",
+      "AnswerId": 721,
+      "UserId": 1,
+      "CriterionId": 46,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 5.0
+    },
+    {
+      "$id": "31",
+      "AnswerId": 722,
+      "UserId": 1,
+      "CriterionId": 46,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 7.0
+    },
+    {
+      "$id": "32",
+      "AnswerId": 723,
+      "UserId": 2,
+      "CriterionId": 46,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 4.0
+    },
+    {
+      "$id": "33",
+      "AnswerId": 724,
+      "UserId": 2,
+      "CriterionId": 46,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "34",
+      "AnswerId": 725,
+      "UserId": 2,
+      "CriterionId": 46,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 0.33333334
+    },
+    {
+      "$id": "35",
+      "AnswerId": 726,
+      "UserId": 5,
+      "CriterionId": 46,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 2.0
+    },
+    {
+      "$id": "36",
+      "AnswerId": 727,
+      "UserId": 5,
+      "CriterionId": 46,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "37",
+      "AnswerId": 728,
+      "UserId": 5,
+      "CriterionId": 46,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 0.33333334
+    },
+    {
+      "$id": "38",
+      "AnswerId": 729,
+      "UserId": 4,
+      "CriterionId": 46,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 1.0
+    },
+    {
+      "$id": "39",
+      "AnswerId": 730,
+      "UserId": 4,
+      "CriterionId": 46,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 2.0
+    },
+    {
+      "$id": "40",
+      "AnswerId": 731,
+      "UserId": 4,
+      "CriterionId": 46,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 0.25
+    },
+    {
+      "$id": "41",
+      "AnswerId": 732,
+      "UserId": 1,
+      "CriterionId": 47,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 0.5
+    },
+    {
+      "$id": "42",
+      "AnswerId": 733,
+      "UserId": 1,
+      "CriterionId": 47,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 5.0
+    },
+    {
+      "$id": "43",
+      "AnswerId": 734,
+      "UserId": 1,
+      "CriterionId": 47,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 7.0
+    },
+    {
+      "$id": "44",
+      "AnswerId": 735,
+      "UserId": 2,
+      "CriterionId": 47,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 5.0
+    },
+    {
+      "$id": "45",
+      "AnswerId": 736,
+      "UserId": 2,
+      "CriterionId": 47,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 0.5
+    },
+    {
+      "$id": "46",
+      "AnswerId": 737,
+      "UserId": 2,
+      "CriterionId": 47,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 0.16666667
+    },
+    {
+      "$id": "47",
+      "AnswerId": 738,
+      "UserId": 5,
+      "CriterionId": 47,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 0.33333334
+    },
+    {
+      "$id": "48",
+      "AnswerId": 739,
+      "UserId": 5,
+      "CriterionId": 47,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 0.25
+    },
+    {
+      "$id": "49",
+      "AnswerId": 740,
+      "UserId": 5,
+      "CriterionId": 47,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 2.0
+    },
+    {
+      "$id": "50",
+      "AnswerId": 741,
+      "UserId": 4,
+      "CriterionId": 47,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 1.0
+    },
+    {
+      "$id": "51",
+      "AnswerId": 742,
+      "UserId": 4,
+      "CriterionId": 47,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "52",
+      "AnswerId": 743,
+      "UserId": 4,
+      "CriterionId": 47,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "53",
+      "AnswerId": 744,
+      "UserId": 1,
+      "CriterionId": 48,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 1.0
+    },
+    {
+      "$id": "54",
+      "AnswerId": 745,
+      "UserId": 1,
+      "CriterionId": 48,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 2.0
+    },
+    {
+      "$id": "55",
+      "AnswerId": 746,
+      "UserId": 1,
+      "CriterionId": 48,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 2.0
+    },
+    {
+      "$id": "56",
+      "AnswerId": 747,
+      "UserId": 2,
+      "CriterionId": 48,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 4.0
+    },
+    {
+      "$id": "57",
+      "AnswerId": 748,
+      "UserId": 2,
+      "CriterionId": 48,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 0.33333334
+    },
+    {
+      "$id": "58",
+      "AnswerId": 749,
+      "UserId": 2,
+      "CriterionId": 48,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 5.0
+    },
+    {
+      "$id": "59",
+      "AnswerId": 750,
+      "UserId": 5,
+      "CriterionId": 48,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 1.0
+    },
+    {
+      "$id": "60",
+      "AnswerId": 751,
+      "UserId": 5,
+      "CriterionId": 48,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 0.5
+    },
+    {
+      "$id": "61",
+      "AnswerId": 752,
+      "UserId": 5,
+      "CriterionId": 48,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "62",
+      "AnswerId": 753,
+      "UserId": 4,
+      "CriterionId": 48,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 0.33333334
+    },
+    {
+      "$id": "63",
+      "AnswerId": 754,
+      "UserId": 4,
+      "CriterionId": 48,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 2.0
+    },
+    {
+      "$id": "64",
+      "AnswerId": 755,
+      "UserId": 4,
+      "CriterionId": 48,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 4.0
+    },
+    {
+      "$id": "65",
+      "AnswerId": 756,
+      "UserId": 1,
+      "CriterionId": 49,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 0.33333334
+    },
+    {
+      "$id": "66",
+      "AnswerId": 757,
+      "UserId": 1,
+      "CriterionId": 49,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 9.0
+    },
+    {
+      "$id": "67",
+      "AnswerId": 758,
+      "UserId": 1,
+      "CriterionId": 49,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 6.0
+    },
+    {
+      "$id": "68",
+      "AnswerId": 759,
+      "UserId": 2,
+      "CriterionId": 49,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 4.0
+    },
+    {
+      "$id": "69",
+      "AnswerId": 760,
+      "UserId": 2,
+      "CriterionId": 49,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "70",
+      "AnswerId": 761,
+      "UserId": 2,
+      "CriterionId": 49,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 0.125
+    },
+    {
+      "$id": "71",
+      "AnswerId": 762,
+      "UserId": 5,
+      "CriterionId": 49,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 2.0
+    },
+    {
+      "$id": "72",
+      "AnswerId": 763,
+      "UserId": 5,
+      "CriterionId": 49,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 1.0
+    },
+    {
+      "$id": "73",
+      "AnswerId": 764,
+      "UserId": 5,
+      "CriterionId": 49,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 0.2
+    },
+    {
+      "$id": "74",
+      "AnswerId": 765,
+      "UserId": 4,
+      "CriterionId": 49,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 61,
+      "Value": 0.33333334
+    },
+    {
+      "$id": "75",
+      "AnswerId": 766,
+      "UserId": 4,
+      "CriterionId": 49,
+      "LeftAlternativeId": 60,
+      "RightAlternativeId": 62,
+      "Value": 0.5
+    },
+    {
+      "$id": "76",
+      "AnswerId": 767,
+      "UserId": 4,
+      "CriterionId": 49,
+      "LeftAlternativeId": 61,
+      "RightAlternativeId": 62,
+      "Value": 4.0
+    }
+  ],
+  "rankingId": 0,
+  "name": "OLIMPIADA",
+  "description": "Case study 2",
+  "calculationMethod": 0,
+  "aggregationMethod": 1,
+  "isComplete": false,
+  "askOrder": "123",
+  "creationDate": "0001-01-01T00:00:00",
+  "endDate": null,
+  "scale": [],
+  "alternatives": [
+    {
+      "$id": "77",
+      "alternativeId": 60,
+      "name": "MEX",
+      "description": "x"
+    },
+    {
+      "$id": "78",
+      "alternativeId": 61,
+      "name": "IND",
+      "description": "x"
+    },
+    {
+      "$id": "79",
+      "alternativeId": 62,
+      "name": "TUR",
+      "description": "x"
+    }
+  ],
+  "criteria": [
+    {
+      "$id": "80",
+      "criterionId": 44,
+      "name": "PKB",
+      "description": "PKB per capita kraju"
+    },
+    {
+      "$id": "81",
+      "criterionId": 45,
+      "name": "FLY",
+      "description": "Dostepnosc polaczen lotniczych"
+    },
+    {
+      "$id": "82",
+      "criterionId": 46,
+      "name": "ATR",
+      "description": "Atrakcyjnosc"
+    },
+    {
+      "$id": "83",
+      "criterionId": 47,
+      "name": "SFY",
+      "description": "Bezpieczenstwo"
+    },
+    {
+      "$id": "84",
+      "criterionId": 48,
+      "name": "EXP",
+      "description": "Doswiadczenie"
+    },
+    {
+      "$id": "85",
+      "criterionId": 49,
+      "name": "WTH",
+      "description": "Pogoda"
+    }
+  ],
+  "results": [
+    {
+      "$id": "86",
+      "score": 0.2877741436501681,
+      "rankingId": 23,
+      "criterionId": 0,
+      "alternativeId": 60
+    },
+    {
+      "$id": "87",
+      "score": 0.3395931298250283,
+      "rankingId": 23,
+      "criterionId": 0,
+      "alternativeId": 61
+    },
+    {
+      "$id": "88",
+      "score": 0.3726327265248035,
+      "rankingId": 23,
+      "criterionId": 0,
+      "alternativeId": 62
+    }
+  ]
+}
+

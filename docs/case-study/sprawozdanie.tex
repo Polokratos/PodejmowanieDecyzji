@@ -1,0 +1,110 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{polyglossia}
+\usepackage{hyperref}
+\setmainlanguage{polish}
+\hypersetup{
+  colorlinks,
+  citecolor=violet,
+  linkcolor=red,
+  urlcolor=blue}
+
+\title{Metody i algorytmy podejmowania decyzji - case study}
+\author{Bartłomiej Słupik \and Piotr Koproń}
+
+\begin{document}
+    \maketitle
+    \section*{Case study 1: Jogurty}
+    Dane jest 7 rodzajów jogurtów naturalnych dostępnych w sklepie Carrefour:
+    \begin{itemize}
+        \item Krasnystaw Calpro
+        \item Bakoma Bio 
+        \item Zott Primo
+        \item Maluta Śmiedankowy bez laktozy
+        \item Activia
+        \item Mleczny Przystanek
+        \item Piątnica Skyr
+    \end{itemize}
+
+    Celem zadania było zaproponowanie kilku kryteriów porównawczych oraz wyłonienia najlepszego produktu
+    dla diety studenta.
+
+    \subsubsection*{Dane}
+    Dane dotyczące produktów pobraliśmy ze strony \\ \href{https://www.carrefour.pl/mleko-nabial-jaja/jogurt-kefir-maslanka-serki-homogenizowane/jogurty-naturalne}{https://www.carrefour.pl/mleko-nabial-jaja/jogurt-kefir-maslanka-serki-homogenizowane/jogurty-naturalne}
+    
+
+    \subsubsection*{Kryteria}
+    Zaproponowaliśmy następujące 5 kryteriów:
+    \begin{itemize}
+        \item Cena
+        \item Objętość
+        \item Smak
+        \item Zawartość białka w 100g
+        \item Zawartość cukru w 100g
+    \end{itemize}
+
+    \subsubsection*{Eksperci}
+    W ankiecie wzięliśmy udział my sami (w dwójkę), gdyż stanowimy reprezentatywną grupę dla tematu i nie lobbujemy za żadną z opcji.
+
+    \subsubsection*{Algorytm}
+    Do agregacji danych użyliśmy metody AIJ, a do obliczania rankingu - metody EVM.
+
+    \subsubsection*{Wyniki}
+    Macierz wynikowa prezentuje się następująco:
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{rl}
+            Krasnystaw & 0.12 \\
+            Bakoma Bio & 0.11 \\ 
+            Zott Primo & 0.17 \\ 
+            Maluta     & 0.13 \\
+            Activia    & 0.10 \\
+            Mleczny Przystanek & 0.16 \\
+            Piątnica Skyr & 0.21 \\
+        \end{tabular}
+    \end{table}
+
+    Wygrała zatem Piątnica, gdyż mimo wyższej ceny ma dużo lepszy skład. Drugie miejsce zajął Zott, który łączy przystępną
+    cenę i niską zawartość cukru.
+
+    \pagebreak
+
+    \section*{Case study 2: Olimpiada}
+    Celem zadania było przeprowadzić ranking możliwych organizatorów Igrzysk Olimpijskich w 2036r.
+    Dane są trzy kandydatury:
+    \begin{itemize}
+        \item Meksyk
+        \item Indonezja
+        \item Turcja
+    \end{itemize}
+
+    \subsubsection*{Kryteria}
+    \begin{itemize}
+        \item PKB per capita
+        \item Dostępność połączeń lotniczych
+        \item Atrakcyjność ogólna
+        \item Bezpieczeństwo
+        \item Doświadczenie w organizacji wielkich imprez
+        \item Pogoda w miesiącu zawodów
+    \end{itemize}
+
+    \subsubsection*{Eksperci}
+    W ankiecie wzięło udział 4 ekspertów. Ekspert nr 1 lobbuje za Turcją, a ekspert nr 2 - za Indonezją.
+    W tym celu wybierają po trzy kryteria, które mają szanse zostać uznane za najważniejsze przez innych.
+    Pod tymi kryteriami dają nienaturalne noty. W pozostałych kryteriach oceniają obiektywnie.
+
+    \subsubsection*{Algorytm}
+    Do agregacji danych użyliśmy metody AIJ, a do obliczania - metody GMM.
+
+    \subsubsection*{Wyniki}
+    Macierz wynikowa prezentuje się następująco:
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{rl}
+            Meksyk & 0.28 \\ 
+            Indonezja & 0.33 \\
+            Turcja & 0.37
+        \end{tabular}
+    \end{table}
+
+    Widać, że lobbystom udało się zagwarantować wysokie pozycje swoim krajom.
+\end{document}
