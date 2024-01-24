@@ -47,8 +47,8 @@ public class PriorityMeanRankingCalculator : RankingCalculator
             
             int l = CriteriaToMatrix[ca.LeftCriterionId];
             int r = CriteriaToMatrix[ca.RightCriterionId];
-            userMatrices[ca.UserId].CriteriaMatrix[l, r] = ca.Value;
-            userMatrices[ca.UserId].CriteriaMatrix[r, l] = 1 / ca.Value;
+            userMatrices[ca.UserId].CriteriaMatrix[l, r] = 1 / ca.Value;
+            userMatrices[ca.UserId].CriteriaMatrix[r, l] = ca.Value;
         }
     
         // Alternatives matrices
@@ -59,8 +59,8 @@ public class PriorityMeanRankingCalculator : RankingCalculator
             {
                 int l = ToMatrix[answer.LeftAlternativeId];
                 int r = ToMatrix[answer.RightAlternativeId];
-                userMatrices[answer.UserId].AltMatrices[m][l, r] = answer.Value;
-                userMatrices[answer.UserId].AltMatrices[m][r, l] = 1 / answer.Value;
+                userMatrices[answer.UserId].AltMatrices[m][l, r] = 1 / answer.Value;
+                userMatrices[answer.UserId].AltMatrices[m][r, l] = answer.Value;
             }
         }
 

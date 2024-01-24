@@ -60,10 +60,12 @@ public static class Algorithm
 
     public static IEnumerable<double> MapResults(Vector<double> v)
     {
-        var func = new Func<double, double>(x => x / (x + 1));
-        var mapped = v.Select(x => func(x));
-        double max = mapped.Max();
-        var final = mapped.Select(x => x * 10 / max);
-        return final;
+        // var func = new Func<double, double>(x => x / (x + 1));
+        // var mapped = v.Select(x => func(x));
+        // double max = mapped.Max();
+        // var final = mapped.Select(x => x * 10 / max);
+        // return final;
+
+        return v;
     }
 }

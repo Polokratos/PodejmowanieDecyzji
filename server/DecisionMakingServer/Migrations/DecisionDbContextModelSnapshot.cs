@@ -216,6 +216,9 @@ namespace DecisionMakingServer.Migrations
                     b.Property<int>("RankingId")
                         .HasColumnType("int");
 
+                    b.Property<double>("Score")
+                        .HasColumnType("float");
+
                     b.HasKey("ResultId");
 
                     b.HasIndex("AlternativeId");

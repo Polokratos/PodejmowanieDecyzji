@@ -11,7 +11,7 @@ public class Result
     
     public int AlternativeId { get; set; }
     public Alternative Alternative { get; set; } = null!;
-    public double Score;
+    public double Score { get; set; } = 0.0;
 }
 
 

@@ -1,4 +1,7 @@
+using DecisionMakingServer.APIModels;
 using DecisionMakingServer.Calculation;
+using DecisionMakingServer.Controllers;
+using DecisionMakingServer.Enums;
 using DecisionMakingServer.Models;
 using DecisionMakingServer.Repositories;
 
@@ -8,13 +11,15 @@ public static class CalculatorTests
 {
     public static void Run()
     {
-        var repo = new RankingRepository();
-        var ranking = repo.GetRankingWithAnswers(18) ?? throw new ArgumentNullException("repo.GetRankingWithAnswers(18)");
+        // var repo = new RankingRepository();
+        // var ranking = repo.GetRankingWithAnswers(23) ?? throw new ArgumentNullException("repo.GetRankingWithAnswers(18)");
         
-        RankingCalculator jmCalculator = new JudgementMeanRankingCalculator(ranking);
-        RankingCalculator pmCalculator = new PriorityMeanRankingCalculator(ranking);
+        // RankingCalculator jmCalculator = new JudgementMeanRankingCalculator(ranking);
+        // RankingCalculator pmCalculator = new PriorityMeanRankingCalculator(ranking);
+        //
+        // jmCalculator.Calculate();
+        // pmCalculator.Calculate();
         
-        jmCalculator.Calculate();
-        pmCalculator.Calculate();
+        RequestManager.CalculateResults(23);
     }
 }

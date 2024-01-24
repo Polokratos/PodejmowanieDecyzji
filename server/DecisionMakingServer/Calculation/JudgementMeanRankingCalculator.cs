@@ -66,16 +66,16 @@ public class JudgementMeanRankingCalculator : RankingCalculator
             {
                 int l = CriteriaToMatrix[answer.LeftId];
                 int r = CriteriaToMatrix[answer.RightId];
-                rm.CriteriaMatrix[l, r] = v;
-                rm.CriteriaMatrix[r, l] = 1 / v;
+                rm.CriteriaMatrix[l, r] = 1 / v;
+                rm.CriteriaMatrix[r, l] = v;
             }
             else
             {
                 int l = ToMatrix[answer.LeftId];
                 int r = ToMatrix[answer.RightId];
                 int c = CriteriaToMatrix[answer.CriterionId ?? -1];
-                rm.AltMatrices[c][l, r] = v;
-                rm.AltMatrices[c][r, l] = 1 / v;
+                rm.AltMatrices[c][l, r] = 1 / v;
+                rm.AltMatrices[c][r, l] = v;
             }
         }
 
@@ -85,8 +85,8 @@ public class JudgementMeanRankingCalculator : RankingCalculator
     public override IEnumerable<Result> Calculate()
     {
         // Calculate Priorities
-        var criteriaPriority = _matrices.CriteriaMatrix.GetPriorityVector(CalculationMethod);
-        var alternativesPriority = _matrices.AltMatrices.Select(m => m.GetPriorityVector(CalculationMethod)).ToArray();
+        var criteriaPriority = _matrices.CriteriaMatrix.GetPriorityVector(CalculationMethod.GeometricMean);
+        var alternativesPriority = _matrices.AltMatrices.Select(m => m.GetPriorityVector(CalculationMethod.GeometricMean)).ToArray();
         
         // Merge subrankings
         var result = Algorithm.MergeLayers(criteriaPriority, alternativesPriority);

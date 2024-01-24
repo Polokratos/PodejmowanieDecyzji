@@ -100,7 +100,7 @@ public static class RequestManager
     }
 
 
-    private static (List<Result>?, Status) CalculateResults(int rankingId)
+    public static (List<Result>?, Status) CalculateResults(int rankingId)
     {
         var rankingRepo = new RankingRepository();
         var ranking = rankingRepo.GetRankingWithAnswers(rankingId);
@@ -110,7 +110,7 @@ public static class RequestManager
         var resultRepo = new ResultRepository();
         resultRepo.ClearResults(rankingId);
 
-        var calculator = new JudgementMeanRankingCalculator(ranking);
+        var calculator = new PriorityMeanRankingCalculator(ranking);
         var results = calculator.Calculate().ToList();
         
         resultRepo.AddResults(results);

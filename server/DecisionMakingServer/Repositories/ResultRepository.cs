@@ -19,5 +19,6 @@ public class ResultRepository : AbstractDbRepository
     public void AddResults(IEnumerable<Result> results)
     {
         DbContext.AddRange(results);
+        DbContext.SaveChanges();
     }
 }
